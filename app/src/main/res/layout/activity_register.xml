@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="50dp">
+
+                    <ImageView
+                        android:layout_width="169dp"
+                        android:layout_height="169dp"
+                        android:layout_marginTop="23dp"
+                        android:src="@drawable/ic_baseline_adb_24"
+                        android:layout_gravity="center"
+                        app:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Register"
+                        android:textColor="@android:color/black"
+                        android:textSize="24sp"
+                        android:layout_marginTop="40dp"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_namalengkap"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:focusable="true"
+                            android:inputType="text"
+                            android:hint="Nama lengkap"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:hint="Username"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="textEmailAddress"
+                            android:hint="Email"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_nohp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:hint="No. HP"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Jenis Kelamin"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginStart="39dp"
+                        android:textSize="15dp"
+                        android:textColor="#7E7E7E"/>
+
+                    <RadioGroup
+                        android:id="@+id/list_jawaban"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/lakilaki"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Laki-laki"
+                            android:textSize="12sp"
+                            android:textColor="#7E7E7E"
+                            android:buttonTint="@color/colorPrimary"/>
+
+                        <RadioButton
+                            android:id="@+id/perempuan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Perempuan"
+                            android:textSize="12sp"
+                            android:layout_marginStart="10dp"
+                            android:textColor="#7E7E7E"
+                            android:buttonTint="@color/colorPrimary"/>
+                    </RadioGroup>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_tempatlahir"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:hint="Tempat Lahir"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_tanggallahir"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="number"
+                            android:hint="Tanggal Lahir"
+                            android:enabled="false"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_alamat"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:layout_gravity=""
+                            android:background="@android:color/transparent"
+                            android:inputType="text|textMultiLine"
+                            android:hint="Alamat"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="textPassword"
+                            android:hint="Password"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_konfirmasipassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="textPassword"
+                            android:hint="Konfirmasi Password"/>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_daftar"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@drawable/slider_bg"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:layout_marginTop="22dp"
+                        android:text="Daftar"
+                        android:textColor="@android:color/white"
+                        android:textSize="16dp"
+                        android:textAllCaps="false"
+                        android:layout_marginBottom="100dp"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sudah punya akun?"
+                            android:textColor="#7E7E7E"
+                            android:textSize="15sp"
+                            android:layout_gravity="center"/>
+
+                        <TextView
+                            android:id="@+id/login_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="  Login"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="15sp"
+                            android:layout_gravity="center"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

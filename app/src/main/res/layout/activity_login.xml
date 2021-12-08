@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true"
+        android:background="@android:color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="50dp">
+
+                    <ImageView
+                        android:layout_width="169dp"
+                        android:layout_height="169dp"
+                        android:layout_marginTop="58dp"
+                        android:src="@drawable/ic_baseline_adb_24"
+                        android:layout_gravity="center"
+                        app:tint="@color/colorPrimary" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Login"
+                        android:textColor="@android:color/black"
+                        android:textSize="24sp"
+                        android:layout_marginTop="40dp"
+                        android:layout_gravity="center"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_username"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:focusable="true"
+                            android:inputType="text"
+                            android:hint="Username"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:background="@drawable/borderbutton">
+
+                        <EditText
+                            android:id="@+id/txt_password"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="12sp"
+                            android:layout_marginStart="32dp"
+                            android:layout_marginEnd="32dp"
+                            android:textColor="#7E7E7E"
+                            android:textColorHint="#7E7E7E"
+                            android:background="@android:color/transparent"
+                            android:inputType="textPassword"
+                            android:hint="Password"/>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_login"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@drawable/slider_bg"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:layout_marginTop="22dp"
+                        android:text="Login"
+                        android:textColor="@android:color/white"
+                        android:textSize="16dp"
+                        android:textAllCaps="false"
+                        android:layout_marginBottom="15dp"/>
+
+                    <Button
+                        android:id="@+id/btn_daftar"
+                        android:layout_width="match_parent"
+                        android:layout_height="52dp"
+                        android:background="@drawable/borderbutton"
+                        android:layout_marginStart="39dp"
+                        android:layout_marginEnd="39dp"
+                        android:text="Daftar"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16dp"
+                        android:textAllCaps="false" />
+
+
+                    <TextView
+                        android:id="@+id/btn_forgot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lupa Password?"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="15sp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="30sp"
+                        android:layout_marginBottom="70dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
