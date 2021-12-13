@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".LoginActivity"
+    tools:context=".LastregisterActivity"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -53,22 +53,37 @@
                 <ImageView
                     android:id="@+id/bg"
                     android:layout_width="match_parent"
-                    android:layout_height="700dp"
+                    android:layout_height="800dp"
                     android:layout_marginTop="117px"
                     android:src="@drawable/bg_rounded"/>
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/layouttitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="78px"
-                    android:textSize="41px"
-                    android:text="Login"
-                    android:fontFamily="@font/segoeui"
-                    android:textFontWeight="800"
-                    android:layout_alignTop="@+id/bg"/>
+                    android:layout_alignTop="@id/bg"
+                    android:layout_marginTop="78px">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="41px"
+                        android:text="Daftar"
+                        android:fontFamily="@font/segoeui"
+                        android:layout_centerVertical="true"
+                        android:textFontWeight="800"/>
+
+                    <ImageView
+                        android:id="@+id/btn_back"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_baseline_chevron_left_24"
+                        android:layout_marginStart="15dp"/>
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/usernamelayout"
@@ -77,7 +92,7 @@
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35dp"
-                    android:layout_alignTop="@+id/title"
+                    android:layout_alignTop="@+id/layouttitle"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
@@ -146,7 +161,7 @@
 
                 <Button
                     android:layout_alignTop="@id/passwordlayout"
-                    android:id="@+id/btn_login"
+                    android:id="@+id/btn_daftar"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/slider_bg"
@@ -154,55 +169,12 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35dp"
                     android:layout_marginTop="100dp"
-                    android:text="Login"
+                    android:text="Daftar"
                     android:fontFamily="@font/segoeuibold"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textAllCaps="false"
                     android:layout_marginBottom="100dp"/>
-
-                <TextView
-                    android:id="@+id/forgotpassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#949292"
-                    android:textSize="16sp"
-                    android:text="@string/forgot_your_password"
-                    android:layout_alignTop="@id/btn_login"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="70dp"
-                    android:fontFamily="@font/segoeui"/>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:layout_alignTop="@id/forgotpassword"
-                    android:layout_marginTop="150dp"
-                    android:layout_centerHorizontal="true">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Belum punya akun?"
-                        android:textColor="@android:color/black"
-                        android:fontFamily="@font/segoeui"
-                        android:textSize="15sp"
-                        android:layout_gravity="center"/>
-
-                    <TextView
-                        android:id="@+id/daftar_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="  Daftar"
-                        android:textColor="@color/colorPrimary"
-                        android:fontFamily="@font/segoeui"
-                        android:textSize="15sp"
-                        android:layout_gravity="center"/>
-
-                </LinearLayout>
 
 
             </RelativeLayout>
