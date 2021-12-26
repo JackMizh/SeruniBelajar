@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterlevelingActivity"
+    android:background="@drawable/background"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="110dp"
+                    android:src="@drawable/logonameputih"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="130dp"/>
+
+                <LinearLayout
+                    android:id="@+id/button"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mendaftar Sebagai :"
+                        android:textSize="13sp"
+                        android:textColor="@android:color/white"
+                        android:fontFamily="@font/segoeui"/>
+
+                    <Button
+                        android:id="@+id/btn_siswa"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/slider_bg"
+                        android:backgroundTint="#ECECEC"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginTop="35dp"
+                        android:text="Siswa"
+                        android:fontFamily="@font/segoeuibold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textAllCaps="false"/>
+
+                    <Button
+                        android:id="@+id/btn_guru"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/slider_bg"
+                        android:backgroundTint="#ECECEC"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Guru"
+                        android:fontFamily="@font/segoeuibold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textAllCaps="false"/>
+
+                    <Button
+                        android:id="@+id/btn_orangtua"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/slider_bg"
+                        android:backgroundTint="#ECECEC"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Orang Tua"
+                        android:fontFamily="@font/segoeuibold"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp"
+                        android:textAllCaps="false"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

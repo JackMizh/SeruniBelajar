@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "55875453360",
+    "project_id": "sipren-44e80",
+    "storage_bucket": "sipren-44e80.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:55875453360:android:e46e62b7e1a908a7069675",
+        "android_client_info": {
+          "package_name": "com.serunibelajar.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "55875453360-a7c230kuv4s489rqhtdbv0tumg9uvfqh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.serunibelajar.app",
+            "certificate_hash": "1e93a6a0859364108ab4b65e3c1df0fc3f763962"
+          }
+        },
+        {
+          "client_id": "55875453360-3rl6rf1tka9tujlo5kgeuvce3il6ieth.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB85IdPkgs-jMVGMWUkw3eprcF-5CX_BPc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "55875453360-3rl6rf1tka9tujlo5kgeuvce3il6ieth.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

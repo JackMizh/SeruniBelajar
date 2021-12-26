@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:background="@drawable/bg_btnhome"
+    android:backgroundTint="@color/white"
+    android:layout_margin="5dp"
+    android:weightSum="3">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="0.7"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/judul_elearning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:text="Client Server"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/pembatas"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp" />
+
+        <View
+            android:id="@+id/pembatas"
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#ABABAB"
+            android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/mapel_elearning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Komputer Jaringan"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:fontFamily="@font/segoeuibold"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/guru_elearning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Guru : Syafira anastasya"
+            android:textColor="#9F9F9F"
+            android:textSize="12sp"
+            android:fontFamily="@font/segoeuibold"
+            android:layout_marginStart="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.8"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/youtube"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_btnhome"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@android:color/holo_red_light">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_play"
+                app:tint="@android:color/white"
+                android:padding="9dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/file"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bg_btnhome"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="5dp"
+            android:backgroundTint="@color/colorPrimary">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_seefile"
+                app:tint="@android:color/white"
+                android:padding="9dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

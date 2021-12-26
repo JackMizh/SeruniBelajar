@@ -24,25 +24,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="150px"
+                android:layout_marginTop="100px"
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="100px"
-                    android:text="SiPren"
-                    android:fontFamily="@font/latoblack"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="31px"
-                    android:text="Sistem Presensi"
-                    android:fontFamily="@font/gothamroundedlight"/>
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="110dp"
+                    android:src="@drawable/logonameputih"/>
 
             </LinearLayout>
 
@@ -69,6 +58,8 @@
                     android:fontFamily="@font/segoeui"
                     android:textFontWeight="800"
                     android:layout_alignTop="@+id/bg"/>
+
+
 
                 <LinearLayout
                     android:id="@+id/usernamelayout"
@@ -180,7 +171,7 @@
                     android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:layout_alignTop="@id/forgotpassword"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="100dp"
                     android:layout_centerHorizontal="true">
 
                     <TextView

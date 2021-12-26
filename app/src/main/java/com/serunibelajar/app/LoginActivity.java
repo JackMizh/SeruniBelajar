@@ -7,8 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,17 +27,16 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     EditText email,password;
     private RequestQueue rQueue;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Tools.setSystemBarColor(this, R.color.colorPrimary);
+        Tools.setSystemBarColor(this, R.color.colortop);
         email = findViewById(R.id.username);
         password = findViewById(R.id.password);
 
@@ -43,7 +44,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_daftar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                startActivity(new Intent(LoginActivity.this, RegisterlevelingActivity.class));
             }
         });
 
@@ -60,12 +61,12 @@ public class LoginActivity extends AppCompatActivity {
         final String emaill = email.getText().toString();
         final String pswd = password.getText().toString();
         if (emaill.isEmpty()) {
-            email.setError("Username or Email is required");
+            email.setError("Silahkan masukkan E-mail");
             email.requestFocus();
             return;
         }
         if (pswd.isEmpty()) {
-            password.setError("Password is required");
+            password.setError("Silahkan masukkan Password");
             password.requestFocus();
             return;
         }
@@ -75,8 +76,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject object=new JSONObject(response);
-                    if (!object.getBoolean("sucsses")){
-                        if(object.getString("status_daftar").equals("Registration")) {
+                    if (object.getBoolean("sucsses")){
+                        if(object.getString("status_registrasi").equals("no")) {
                             AlertDialog alertDialog = new AlertDialog.Builder(LoginActivity.this).create();
                             alertDialog.setTitle("Pemberitahuan Akun");
                             alertDialog.setMessage("Akun anda belum disetujui oleh admin, silahkan tunggu beberapa saat lagi.");
@@ -90,13 +91,36 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             SessionManager sessionManager = new SessionManager(LoginActivity.this);
-                            sessionManager.createSession(object.getString("nip"), object.getString("password"), object.getString("npsn"), object.getString("nuptk"), object.getString("nama"), object.getString("id_jk"), object.getString("tempat_lahir"), object.getString("tanggal_lahir"), object.getString("kode_kelas"), object.getString("status_kepegawaian"), object.getString("id_jenis_ptk"), object.getString("id_agama"), object.getString("alamat"), object.getString("no_hp"), object.getString("email"), object.getString("tugas_tambahan"), object.getString("golongan"), object.getString("nomor_sertifikasi"), object.getString("status"), object.getString("status_daftar"));
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            if (object.getString("previllage").equals("Guru"))
+                            {
+                                sessionManager.createSession(object.getString("email"), object.getString("namalengkap_guru"), object.getString("foto_guru"), object.getString("previllage"));
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }else if(object.getString("previllage").equals("Orang Tua"))
+                            {
+                                sessionManager.createSession(object.getString("email"), object.getString("namalengkap_orangtua"), object.getString("foto_orangtua"), object.getString("previllage"));
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else if(object.getString("previllage").equals("Siswa"))
+                            {
+                                sessionManager.createSession(object.getString("email"), object.getString("namalengkap_siswa"), object.getString("foto_siswa"), object.getString("previllage"));
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
                         }
-                    }else {
-                        Toast.makeText(getApplicationContext(),"User Login UnSucssesFull", Toast.LENGTH_LONG).show();
+                    }else{
+                        if (object.getString("error").equals("wrongemail")) {
+                            Toast.makeText(getApplicationContext(), "Email yang anda masukkan salah atau tidak terdaftar.", Toast.LENGTH_LONG).show();
+                        } else if (object.getString("error").equals("wrongpassword")) {
+                            Toast.makeText(getApplicationContext(), "Password yang anda masukkan salah, silahkan coba lagi.", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                                Toast.makeText(getApplicationContext(),"Terjadi kesalahan saat login, silahkan coba lagi nanti.", Toast.LENGTH_LONG).show();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".RegisterActivity"
+    tools:context=".Registerorangtua_Activity"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -28,21 +28,11 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="100px"
-                    android:text="SiPren"
-                    android:fontFamily="@font/latoblack"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textSize="31px"
-                    android:text="Sistem Presensi"
-                    android:fontFamily="@font/gothamroundedlight"/>
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="110dp"
+                    android:src="@drawable/logonameputih"
+                    android:layout_gravity="center_horizontal"/>
 
             </LinearLayout>
 
@@ -53,7 +43,7 @@
                 <ImageView
                     android:id="@+id/bg"
                     android:layout_width="match_parent"
-                    android:layout_height="800dp"
+                    android:layout_height="900dp"
                     android:layout_marginTop="117px"
                     android:src="@drawable/bg_rounded"/>
 
@@ -71,7 +61,7 @@
                         android:textColor="@color/colorPrimary"
                         android:layout_centerHorizontal="true"
                         android:textSize="41px"
-                        android:text="Daftar"
+                        android:text="Orang Tua"
                         android:fontFamily="@font/segoeui"
                         android:layout_centerVertical="true"
                         android:textFontWeight="800"/>
@@ -98,7 +88,7 @@
                     android:layout_marginTop="34dp"/>
 
                 <LinearLayout
-                    android:id="@+id/niplayout"
+                    android:id="@+id/niklayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -111,10 +101,10 @@
                     android:padding="13dp">
 
                     <EditText
-                        android:id="@+id/nip"
+                        android:id="@+id/nik"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="NIP"
+                        android:hint="NIK"
                         android:textColorHint="#B7B7B7"
                         android:gravity="center_vertical"
                         android:layout_gravity="center"
@@ -134,7 +124,7 @@
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/niplayout"
+                    android:layout_alignTop="@+id/niklayout"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
@@ -158,7 +148,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/nuptklayout"
+                    android:id="@+id/tempatlahirlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -171,10 +161,10 @@
                     android:padding="13dp">
 
                     <EditText
-                        android:id="@+id/nuptk"
+                        android:id="@+id/tempatlahir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="NUPTK"
+                        android:hint="Tempat Lahir"
                         android:textColorHint="#B7B7B7"
                         android:gravity="center_vertical"
                         android:layout_gravity="center"
@@ -188,32 +178,66 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/jklayout"
+                    android:id="@+id/tanggallahirlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/nuptklayout"
+                    android:layout_alignTop="@+id/tempatlahirlayout"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
                     android:padding="13dp">
 
-                    <EditText
-                        android:id="@+id/jeniskelamin"
+                    <TextView
+                        android:id="@+id/tanggallahir"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Jenis Kelamin"
                         android:textColorHint="#B7B7B7"
                         android:gravity="center_vertical"
                         android:layout_gravity="center"
                         android:layout_marginStart="15dp"
                         android:textSize="15sp"
                         android:textColor="#9D9D9D"
-                        android:fontFamily="@font/segoeui"
-                        android:inputType="text"
-                        android:background="@null"/>
+                        android:text="Tanggal Lahir"
+                        android:fontFamily="@font/segoeui"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/jklayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/tanggallahirlayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinnerjk"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
+
+                    <!--                    <EditText-->
+                    <!--                        android:id="@+id/jeniskelamin"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:hint="Jenis Kelamin"-->
+                    <!--                        android:textColorHint="#B7B7B7"-->
+                    <!--                        android:gravity="center_vertical"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        android:layout_marginStart="15dp"-->
+                    <!--                        android:textSize="15sp"-->
+                    <!--                        android:textColor="#9D9D9D"-->
+                    <!--                        android:fontFamily="@font/segoeui"-->
+                    <!--                        android:inputType="text"-->
+                    <!--                        android:background="@null"/>-->
 
                 </LinearLayout>
 
@@ -248,13 +272,50 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/Nohplayout"
+                    android:id="@+id/agamalayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35sp"
                     android:layout_alignTop="@+id/alamatlayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinneragama"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
+
+                    <!--                    <EditText-->
+                    <!--                        android:id="@+id/agama"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:hint="Agama"-->
+                    <!--                        android:textColorHint="#B7B7B7"-->
+                    <!--                        android:gravity="center_vertical"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        android:layout_marginStart="15dp"-->
+                    <!--                        android:textSize="15sp"-->
+                    <!--                        android:textColor="#9D9D9D"-->
+                    <!--                        android:fontFamily="@font/segoeui"-->
+                    <!--                        android:inputType="text"-->
+                    <!--                        android:background="@null"/>-->
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/Nohplayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/agamalayout"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
@@ -278,7 +339,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/statuspegawailayout"
+                    android:id="@+id/statuslayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -290,11 +351,47 @@
                     android:backgroundTint="#ECECEC"
                     android:padding="13dp">
 
-                    <EditText
-                        android:id="@+id/statuspegawai"
+                    <Spinner
+                        android:id="@+id/spinnerstatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Status Pegawai"
+                        android:layout_marginStart="15dp"/>
+
+                    <!--                    <EditText-->
+                    <!--                        android:id="@+id/status"-->
+                    <!--                        android:layout_width="match_parent"-->
+                    <!--                        android:layout_height="wrap_content"-->
+                    <!--                        android:hint="Status"-->
+                    <!--                        android:textColorHint="#B7B7B7"-->
+                    <!--                        android:gravity="center_vertical"-->
+                    <!--                        android:layout_gravity="center"-->
+                    <!--                        android:layout_marginStart="15dp"-->
+                    <!--                        android:textSize="15sp"-->
+                    <!--                        android:textColor="#9D9D9D"-->
+                    <!--                        android:fontFamily="@font/segoeui"-->
+                    <!--                        android:inputType="text"-->
+                    <!--                        android:background="@null"/>-->
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pekerjaanlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/statuslayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <EditText
+                        android:id="@+id/pekerjaan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Pekerjaan"
                         android:textColorHint="#B7B7B7"
                         android:gravity="center_vertical"
                         android:layout_gravity="center"
@@ -307,6 +404,7 @@
 
                 </LinearLayout>
 
+
                 <ImageView
                     android:id="@+id/buttonnext"
                     android:layout_width="50dp"
@@ -315,7 +413,7 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:src="@drawable/ic_baseline_chevron_right_24"
                     android:padding="5dp"
-                    android:layout_alignTop="@id/statuspegawailayout"
+                    android:layout_alignTop="@id/pekerjaanlayout"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="35dp"
                     android:layout_marginTop="100dp"

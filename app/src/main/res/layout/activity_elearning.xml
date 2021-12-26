@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".ElearningActivity"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/logolayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90px">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:text="E - Learning"
+                    android:fontFamily="@font/latoblack"
+                    android:layout_marginStart="35dp"/>
+
+                <LinearLayout
+                    android:id="@+id/btntambah"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_btnhome"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginEnd="35dp"
+                    android:backgroundTint="@android:color/white">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_addfile"
+                        app:tint="@color/colorPrimary"
+                        android:padding="9dp"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="800dp"
+                    android:layout_marginTop="60px"
+                    android:src="@drawable/bg_rounded"
+                    app:tint="#E5E5E5" />
+
+                <LinearLayout
+                    android:id="@+id/layouttitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_alignTop="@id/bg"
+                    android:layout_marginTop="78px"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_btnhome"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp">
+
+                        <Button
+                            android:id="@+id/btnall"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/bg_btnhome"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:layout_gravity="center"
+                            android:text="All"
+                            android:textColor="@android:color/white"
+                            android:textSize="15sp"
+                            android:textAllCaps="false"
+                            android:fontFamily="@font/segoeui"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_btnhome"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp">
+
+                        <Button
+                            android:id="@+id/btncari"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.8"
+                            android:layout_height="35dp"
+                            android:background="@drawable/bg_btnhome"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:layout_gravity="center"
+                            android:text="Cari"
+                            android:textColor="@android:color/white"
+                            android:textSize="15sp"
+                            android:textAllCaps="false"
+                            android:fontFamily="@font/segoeui"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="20px"
+                    android:layout_below="@+id/layouttitle"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_btnhome"
+                        android:padding="5dp"
+                        android:backgroundTint="@android:color/white"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp">
+
+                        <Spinner
+                            android:id="@+id/spinnerjurusan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_btnhome"
+                        android:padding="5dp"
+                        android:backgroundTint="@android:color/white"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp">
+
+                        <Spinner
+                            android:id="@+id/spinnerkelas"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/atas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="List Bahan Ajar"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:layout_below="@id/subtitle"
+                    android:fontFamily="@font/segoeuibold"
+                    android:layout_marginStart="20sp"
+                    android:layout_marginTop="30dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerviewelearning"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/elearning_layout"
+                    android:layout_below="@id/atas"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

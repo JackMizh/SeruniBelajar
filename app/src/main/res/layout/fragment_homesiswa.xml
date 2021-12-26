@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomesiswaFragment"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/background"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginTop="40dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_centerVertical="true">
+
+                    <TextView
+                        android:id="@+id/nama"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textSize="20sp"
+                        android:text="Hi, Admin Seruni"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:maxLength="16"/>
+
+                    <TextView
+                        android:id="@+id/gritting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/white"
+                        android:textSize="16sp"
+                        android:text="Welcome Back!"
+                        android:fontFamily="@font/montserrat_regular"/>
+
+                </LinearLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:id="@+id/profile_image"
+                    android:src="@drawable/logohijau"
+                    android:layout_alignParentEnd="true"
+                    app:civ_circle_background_color="@color/white"/>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_baseline_bookmark_24"/>
+
+                <TextView
+                    android:id="@+id/previllage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:text="Guru"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:layout_marginStart="3dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rounded"
+                android:layout_marginTop="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6EBF43"
+                    android:textSize="18sp"
+                    android:text="Berita Populer"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginBottom="15dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@android:color/white">
+
+                <com.github.islamkhsh.CardSliderViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_marginTop="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    app:auto_slide_time="3"
+                    app:cardSlider_indicator="@id/indicator"
+                    app:cardSlider_otherPagesWidth="0dp"
+                    app:cardSlider_pageMargin="12dp"
+                    app:cardSlider_smallAlphaFactor="0.5"
+                    app:cardSlider_smallScaleFactor="0.9" />
+
+
+                <com.github.islamkhsh.CardSliderIndicator
+                    android:id="@+id/indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    app:indicatorsToShow="5" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#6EBF43"
+                    android:textSize="25sp"
+                    android:text="Akses  Cepat"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:layout_marginBottom="15dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:id="@+id/btn_sekolah"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="10dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:background="@drawable/bg_btnhome"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:layout_below="@+id/logosekolah"
+                            android:layout_marginTop="-60dp"/>
+
+                        <ImageView
+                            android:id="@+id/logosekolah"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:src="@drawable/ic_school"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"/>
+
+                        <TextView
+                            android:id="@+id/textsekolah"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tentang Sekolah"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/logosekolah"/>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/btn_mapel"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="10dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:background="@drawable/bg_btnhome"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:layout_below="@+id/logobtnmapel"
+                            android:layout_marginTop="-60dp"/>
+
+                        <ImageView
+                            android:id="@+id/logobtnmapel"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:src="@drawable/ic_group_185"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"/>
+
+                        <TextView
+                            android:id="@+id/textbtnujian"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Jadwal dan\nMata Pelajaran"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/logobtnmapel"/>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:id="@+id/btntugas"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="10dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:background="@drawable/bg_btnhome"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:layout_below="@+id/logotugas"
+                            android:layout_marginTop="-60dp"/>
+
+                        <ImageView
+                            android:id="@+id/logotugas"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:src="@drawable/ic_group_185"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"/>
+
+                        <TextView
+                            android:id="@+id/txtbtntugas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tugas"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/logotugas"/>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/btn_nilai"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="10dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:background="@drawable/bg_btnhome"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:layout_below="@+id/logobtnilai"
+                            android:layout_marginTop="-60dp"/>
+
+                        <ImageView
+                            android:id="@+id/logobtnilai"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:src="@drawable/ic_group_185"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"/>
+
+                        <TextView
+                            android:id="@+id/textbtnnilai"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Nilai Siswa"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/logobtnilai"/>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="20dp">
+
+                    <RelativeLayout
+                        android:id="@+id/btnelearning"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:layout_marginEnd="10dp">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="110dp"
+                            android:background="@drawable/bg_btnhome"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:layout_below="@+id/logoelearning"
+                            android:layout_marginTop="-60dp"/>
+
+                        <ImageView
+                            android:id="@+id/logoelearning"
+                            android:layout_width="match_parent"
+                            android:layout_height="115dp"
+                            android:src="@drawable/ic_group_185"
+                            android:layout_centerInParent="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"/>
+
+                        <TextView
+                            android:id="@+id/txtbtnelearning"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="E - Learning"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:textSize="14sp"
+                            android:textColor="@android:color/white"
+                            android:fontFamily="@font/montserrat_regular"
+                            android:layout_centerHorizontal="true"
+                            android:layout_below="@+id/logoelearning"/>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

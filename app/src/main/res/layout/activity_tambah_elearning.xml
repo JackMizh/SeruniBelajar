@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context=".TambahElearning"
+    android:orientation="vertical">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/logolayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="100px"
+                android:layout_gravity="center"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textColor="@android:color/white"
+                    android:text="Tambah Elearning"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="800dp"
+                    android:layout_marginTop="117px"
+                    android:src="@drawable/bg_rounded"/>
+
+                <RelativeLayout
+                    android:id="@+id/layouttitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/bg"
+                    android:layout_marginTop="78px">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimary"
+                        android:layout_centerHorizontal="true"
+                        android:textSize="41px"
+                        android:text="Elearning Siswa"
+                        android:fontFamily="@font/segoeui"
+                        android:layout_centerVertical="true"
+                        android:textFontWeight="800"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="35px"
+                    android:text="Lengkapi Data Elearning Siswa"
+                    android:fontFamily="@font/segoeui"
+                    android:layout_centerHorizontal="true"
+                    android:layout_alignTop="@id/layouttitle"
+                    android:layout_marginTop="34dp"/>
+
+                <LinearLayout
+                    android:id="@+id/jurusanlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_alignTop="@+id/subtitle"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinnerjurusan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/kelaslayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_alignTop="@+id/jurusanlayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinnerkelas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mapellayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_alignTop="@+id/kelaslayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinnermapel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/judulelearninglayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/mapellayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <EditText
+                        android:id="@+id/judulelearning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Judul Elearning"
+                        android:textColorHint="#B7B7B7"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="15dp"
+                        android:textSize="15sp"
+                        android:textColor="#9D9D9D"
+                        android:fontFamily="@font/segoeui"
+                        android:inputType="text"
+                        android:background="@null"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tanggalelearningayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/judulelearninglayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <TextView
+                        android:id="@+id/tanggalelearning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColorHint="#B7B7B7"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="15dp"
+                        android:textSize="15sp"
+                        android:textColor="#9D9D9D"
+                        android:text="Tanggal Elearning"
+                        android:fontFamily="@font/segoeui"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/fileelearninglayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/tanggalelearningayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <EditText
+                        android:id="@+id/fileelearning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Link File Elearning"
+                        android:textColorHint="#B7B7B7"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="15dp"
+                        android:textSize="15sp"
+                        android:textColor="#9D9D9D"
+                        android:fontFamily="@font/segoeui"
+                        android:inputType="text"
+                        android:background="@null"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/youtubeelearninglayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/fileelearninglayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <EditText
+                        android:id="@+id/youtubeelearning"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Link Youtube Elearning"
+                        android:textColorHint="#B7B7B7"
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="15dp"
+                        android:textSize="15sp"
+                        android:textColor="#9D9D9D"
+                        android:fontFamily="@font/segoeui"
+                        android:inputType="text"
+                        android:background="@null"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/buttonnext"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:src="@drawable/ic_baseline_chevron_right_24"
+                    android:padding="5dp"
+                    android:layout_alignTop="@id/youtubeelearninglayout"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_marginBottom="70dp"/>
+
+
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

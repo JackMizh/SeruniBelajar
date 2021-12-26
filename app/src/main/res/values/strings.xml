@@ -1,4 +1,15 @@
 <resources>
-    <string name="app_name">Seruni Belajar</string>
+    <string name="app_name">SiPren</string>
     <string name="forgot_your_password"><u>Forgot Your Password?</u></string>
+    <string-array name="login_previllage">
+        <item>Login Sebagai...</item>
+        <item>Siswa</item>
+        <item>Guru</item>
+        <item>Orang Tua</item>
+        <item>Admin</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="syarat_ketentuan"><![CDATA[Syarat & Ketentuan]]></string>
+    <string name="deserve">\@ 2021 | All rights reserved.</string>
 </resources>

@@ -11,7 +11,7 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Tools.setSystemBarColor(this, R.color.colorPrimary);
+        Tools.setSystemBarColor(this, R.color.colortop);
         setContentView(R.layout.activity_splash_screen);
 
         final Handler handler = new Handler();
