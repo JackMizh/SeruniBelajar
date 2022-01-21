@@ -85,7 +85,7 @@
                         android:id="@+id/username"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Username or Email"
+                        android:hint="NISN/NIP/NIK"
                         android:textColorHint="#B7B7B7"
                         android:gravity="center_vertical"
                         android:layout_gravity="center"
@@ -93,7 +93,7 @@
                         android:textSize="15sp"
                         android:textColor="#9D9D9D"
                         android:fontFamily="@font/segoeui"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:background="@null"/>
 
                 </LinearLayout>
@@ -152,25 +152,13 @@
                     android:textAllCaps="false"
                     android:layout_marginBottom="100dp"/>
 
-                <TextView
-                    android:id="@+id/forgotpassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#949292"
-                    android:textSize="16sp"
-                    android:text="@string/forgot_your_password"
-                    android:layout_alignTop="@id/btn_login"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="70dp"
-                    android:fontFamily="@font/segoeui"/>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_alignTop="@id/forgotpassword"
+                    android:layout_alignTop="@id/btn_login"
                     android:layout_marginTop="100dp"
                     android:layout_centerHorizontal="true">
 

@@ -2,7 +2,7 @@ package com.serunibelajar.app;
 
 public class Tugas {
 
-    public String id_tugas, sekolah_tugas, jurusan_tugas, kelas_tugas, mapel_tugas, judul_tugas, tanggal_tugas, file_tugas, youtube_tugas, guru_tugas;
+    public String id_tugas, sekolah_tugas, jurusan_tugas, kelas_tugas, mapel_tugas, judul_tugas, tanggal_tugas, file_tugas, youtube_tugas, guru_tugas, pertemuan_tugas, deadline_tugas;
 
     public Tugas() {
     }
@@ -85,5 +85,21 @@ public class Tugas {
 
     public void setGuru_tugas(String guru_tugas) {
         this.guru_tugas = guru_tugas;
+    }
+
+    public String getPertemuan_tugas() {
+        return pertemuan_tugas;
+    }
+
+    public void setPertemuan_tugas(String pertemuan_tugas) {
+        this.pertemuan_tugas = pertemuan_tugas;
+    }
+
+    public String getDeadline_tugas() {
+        return deadline_tugas;
+    }
+
+    public void setDeadline_tugas(String deadline_tugas) {
+        this.deadline_tugas = deadline_tugas;
     }
 }

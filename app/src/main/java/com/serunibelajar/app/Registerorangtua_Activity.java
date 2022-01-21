@@ -33,14 +33,15 @@ import java.util.Calendar;
 public class Registerorangtua_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener{
 
     LinearLayout tanggallahirlayout;
-    Spinner spinnerstatus, spinneragama, spinnerjk;
+    Spinner spinnerjk;
     TextView tanggallahir;
-    private JSONArray result, resultagama, resultstatus;
-    private ArrayList<String> jk, agama, status;
+    private JSONArray result;
+    private ArrayList<String> namajk, idjk;
     Calendar calendar;
     DatePickerDialog datePickerDialog;
     int year,month,dayOfMonth;
-    EditText nik, nama, tempatlahir, alamat,nohp, pekerjaan;
+    EditText nik, nama, tempatlahir, alamat,nohp, pekerjaan, status;
+    SpinnerAdapter spinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +50,11 @@ public class Registerorangtua_Activity extends AppCompatActivity implements Adap
 
         Tools.setSystemBarColor(this, R.color.colortop);
 
-        jk = new ArrayList<String>();
-        agama = new ArrayList<String>();
-        status = new ArrayList<String>();
+        namajk = new ArrayList<String>();
+        idjk = new ArrayList<String>();
         calendar = Calendar.getInstance();
         spinnerjk = (Spinner) findViewById(R.id.spinnerjk);
-        spinneragama = (Spinner) findViewById(R.id.spinneragama);
-        spinnerstatus = (Spinner) findViewById(R.id.spinnerstatus);
+        status = (EditText) findViewById(R.id.status);
         tanggallahirlayout = (LinearLayout) findViewById(R.id.tanggallahirlayout);
         tanggallahir = (TextView) findViewById(R.id.tanggallahir);
         nik = (EditText) findViewById(R.id.nik);
@@ -88,15 +87,12 @@ public class Registerorangtua_Activity extends AppCompatActivity implements Adap
         });
 
         getjk();
-        getagama();
-        getstatus();
 
         ImageView btnnext = findViewById(R.id.buttonnext);
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                spinnerstatus = findViewById(R.id.spinnerstatus);
                 if (nik.getText().toString().isEmpty()) {
                     nik.setError("NIK is required");
                     nik.requestFocus();
@@ -117,7 +113,7 @@ public class Registerorangtua_Activity extends AppCompatActivity implements Adap
                     tanggallahir.requestFocus();
                     return;
                 }
-                if (spinnerjk.getSelectedItem().toString().equals("Jenis Kelamin")) {
+                if (spinnerjk.getSelectedItem().toString().equals("Belum Terisi")) {
                     Toast.makeText(Registerorangtua_Activity.this, "Jenis Kelamin is required", Toast.LENGTH_LONG).show();
                     spinnerjk.requestFocus();
                     return;
@@ -127,19 +123,14 @@ public class Registerorangtua_Activity extends AppCompatActivity implements Adap
                     alamat.requestFocus();
                     return;
                 }
-                if (spinneragama.getSelectedItem().toString().equals("Agama")) {
-                    Toast.makeText(Registerorangtua_Activity.this, "Agama is required", Toast.LENGTH_LONG).show();
-                    spinneragama.requestFocus();
-                    return;
-                }
                 if (nohp.getText().toString().isEmpty()) {
                     nohp.setError("No. Handphone is required");
                     nohp.requestFocus();
                     return;
                 }
-                if (spinnerstatus.getSelectedItem().toString().equals("Status")) {
-                    Toast.makeText(Registerorangtua_Activity.this, "Status is required", Toast.LENGTH_LONG).show();
-                    spinnerstatus.requestFocus();
+                if (status.getText().toString().equals("")) {
+                    Toast.makeText(Registerorangtua_Activity.this, "Status Keluarga is required", Toast.LENGTH_LONG).show();
+                    status.requestFocus();
                     return;
                 }
                 if (pekerjaan.getText().toString().isEmpty()) {
@@ -150,16 +141,16 @@ public class Registerorangtua_Activity extends AppCompatActivity implements Adap
 
 
                 Intent i = new Intent(Registerorangtua_Activity.this, LastregisterActivity.class);
-                i.putExtra("nik", nik.getText().toString());
+                i.putExtra("nik_wali", nik.getText().toString());
                 i.putExtra("nama", nama.getText().toString());
-                i.putExtra("tempatlahir", tempatlahir.getText().toString());
-                i.putExtra("tanggallahir", tanggallahir.getText().toString());
-                i.putExtra("jeniskelamin", String.valueOf(spinnerjk.getSelectedItemPosition()));
                 i.putExtra("alamat", alamat.getText().toString());
-                i.putExtra("agama", String.valueOf(spinneragama.getSelectedItemPosition()));
-                i.putExtra("nohp", nohp.getText().toString());
-                i.putExtra("status", String.valueOf(spinnerstatus.getSelectedItemPosition()));
+                i.putExtra("tempat_lahir", tempatlahir.getText().toString());
+                i.putExtra("tanggal_lahir", tanggallahir.getText().toString());
+                i.putExtra("id_jk", String.valueOf(spinnerjk.getSelectedItem().toString()));
+                i.putExtra("no_hp", nohp.getText().toString());
+                i.putExtra("status_keluarga", status.getText().toString());
                 i.putExtra("pekerjaan", pekerjaan.getText().toString());
+                i.putExtra("status", "Aktif");
                 i.putExtra("previllage", "Orang Tua");
                 startActivity(i);
             }
@@ -174,79 +165,8 @@ public class Registerorangtua_Activity extends AppCompatActivity implements Adap
         });
     }
 
-    private void getstatus() {
-        StringRequest stringRequest = new StringRequest("https://plazatanaman.com/sipren/status.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JSONObject j = null;
-                        try {
-                            j = new JSONObject(response);
-                            resultstatus = j.getJSONArray("result");
-                            getStatus(resultstatus);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
-    private void getStatus(JSONArray j) {
-        status.clear();
-        status.add("Status");
-        for(int i=0;i<j.length();i++){
-            try {
-                //Getting json object
-                JSONObject json = j.getJSONObject(i);
-
-                //Adding the name of the student to array list
-                status.add(json.getString("nama_status"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //Setting adapter to show the items in the spinner
-        spinnerstatus.setAdapter(new ArrayAdapter<String>(Registerorangtua_Activity.this, R.layout.text_spinner, R.id.textView, status));
-    }
-
-    private void getagama() {
-        StringRequest stringRequest = new StringRequest("https://plazatanaman.com/sipren/agama.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JSONObject j = null;
-                        try {
-                            j = new JSONObject(response);
-                            resultagama = j.getJSONArray("result");
-                            getAgama(resultagama);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
     private void getjk() {
-        StringRequest stringRequest = new StringRequest("https://plazatanaman.com/sipren/jk.php",
+        StringRequest stringRequest = new StringRequest("https://serunibelajar.co.id/absensi/jk.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -271,43 +191,25 @@ public class Registerorangtua_Activity extends AppCompatActivity implements Adap
         requestQueue.add(stringRequest);
     }
 
-    private void getAgama(JSONArray j) {
-        agama.clear();
-        agama.add("Agama");
-        for(int i=0;i<j.length();i++){
-            try {
-                //Getting json object
-                JSONObject json = j.getJSONObject(i);
-
-                //Adding the name of the student to array list
-                agama.add(json.getString("nama_agama"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //Setting adapter to show the items in the spinner
-        spinneragama.setAdapter(new ArrayAdapter<String>(Registerorangtua_Activity.this, R.layout.text_spinner, R.id.textView, agama));
-
-    }
-
     private void getJenisKelamin(JSONArray j) {
-        jk.clear();
-        jk.add("Jenis Kelamin");
+        namajk.clear();
+        idjk.clear();
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                jk.add(json.getString("nama_jk"));
+                namajk.add(json.getString("nama"));
+                idjk.add(json.getString("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerjk.setAdapter(new ArrayAdapter<String>(Registerorangtua_Activity.this, R.layout.text_spinner, R.id.textView, jk));
+        spinnerAdapter = new SpinnerAdapter(Registerorangtua_Activity.this, namajk, idjk);
+        spinnerjk.setAdapter(spinnerAdapter);
 
     }
 

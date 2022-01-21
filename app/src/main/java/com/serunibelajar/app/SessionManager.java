@@ -42,12 +42,14 @@ public class SessionManager {
         return sharedPreferences.getBoolean(LOGIN, false);
     }
 
-    public void checkLogin(final Context context){
+    public boolean checkLogin(final Context context){
         if (this.isLoggin()) {
+            return true;
         } else {
             Intent i = new Intent (context, LoginActivity.class);
             context.startActivity(i);
             ((MainActivity) context).finish();
+            return false;
         }
     }
 

@@ -43,6 +43,9 @@ public class TugasAdapter extends RecyclerView.Adapter<TugasAdapter.ViewHolder>{
         holder.judul_tugas.setText(tugas.getJudul_tugas());
         holder.mapel_tugas.setText(tugas.getMapel_tugas());
         holder.guru_tugas.setText("Guru : " + tugas.getGuru_tugas());
+        holder.pertemuan_tugas.setVisibility(View.GONE);
+        holder.deadline_tugas.setVisibility(View.VISIBLE);
+        holder.deadline_tugas.setText("Deadline : " + tugas.getDeadline_tugas());
         holder.youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +70,7 @@ public class TugasAdapter extends RecyclerView.Adapter<TugasAdapter.ViewHolder>{
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView judul_tugas, mapel_tugas, guru_tugas;
+        public TextView judul_tugas, mapel_tugas, guru_tugas, pertemuan_tugas, deadline_tugas;
         public LinearLayout youtube, file;
 
         public ViewHolder(View itemView) {
@@ -76,6 +79,8 @@ public class TugasAdapter extends RecyclerView.Adapter<TugasAdapter.ViewHolder>{
             judul_tugas = itemView.findViewById(R.id.judul_elearning);
             mapel_tugas = itemView.findViewById(R.id.mapel_elearning);
             guru_tugas = itemView.findViewById(R.id.guru_elearning);
+            pertemuan_tugas = itemView.findViewById(R.id.pertemuan_elearning);
+            deadline_tugas = itemView.findViewById(R.id.deadline_elearning);
             youtube = itemView.findViewById(R.id.youtube);
             file = itemView.findViewById(R.id.file);
         }

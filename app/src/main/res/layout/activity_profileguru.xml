@@ -95,34 +95,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:text="NPSN"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtnpsn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
                     android:text="NUPTK"
                     android:fontFamily="@font/segoeui"/>
 
@@ -320,34 +292,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:text="Jabatan"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtjabatan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
                     android:text="Tugas Tambahan"
                     android:fontFamily="@font/segoeui"/>
 
@@ -437,34 +381,6 @@
 
                 <TextView
                     android:id="@+id/txtgolongan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:text="Status"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtstatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"

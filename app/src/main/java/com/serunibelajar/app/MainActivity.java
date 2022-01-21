@@ -9,8 +9,10 @@ import androidx.fragment.app.Fragment;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,18 +68,10 @@ public class MainActivity extends AppCompatActivity {
         FirebaseMessaging.getInstance().subscribeToTopic("all");
 
         sessionManager = new SessionManager(this);
-        sessionManager.checkLogin(this);
-
-
         home_icon = findViewById(R.id.home_icon);
         report_icon = findViewById(R.id.report_icon);
         notification_icon = findViewById(R.id.notification_icon);
         account_icon = findViewById(R.id.account_icon);
-
-        initComponent();
-        createNotificationChannel();
-        getToken();
-        subscribeToTopic();
 
         LinearLayout lhome = findViewById(R.id.layout_home);
         lhome.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +132,19 @@ public class MainActivity extends AppCompatActivity {
                 toAccount();
             }
         });
+
+        if(sessionManager.isLoggin())
+        {
+            initComponent();
+            createNotificationChannel();
+            getToken();
+            subscribeToTopic();
+        }
+        else {
+            Intent i = new Intent (MainActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+        }
     }
 
     private void getToken(){
@@ -185,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, fragment,
                 fragment.getClass().getSimpleName()).commit();
 
-        home_icon.setBackgroundTintList(this.getResources().getColorStateList(R.color.colorPrimary));
+        home_icon.setBackgroundTintList(MainActivity.this.getResources().getColorStateList(R.color.colorPrimary));
     }
 
     @Override

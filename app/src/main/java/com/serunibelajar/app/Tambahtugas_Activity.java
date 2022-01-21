@@ -1,14 +1,19 @@
-package com.serunibelajar.app;
+    package com.serunibelajar.app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +22,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,8 +36,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,15 +52,23 @@ import java.util.Map;
 public class Tambahtugas_Activity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener{
 
     private JSONArray resultjurusan, resultkelas, resultmapel;
-    private ArrayList<String> jurusan, kelas, mapel;
+    private ArrayList<String> namajurusan, kodejurusan, namakelas, kodekelas, namamapel ,kodemapel;
     Spinner spinnerjurusan, spinnerkelas, spinnermapel;
     Calendar calendar;
     DatePickerDialog datePickerDialog;
     int year,month,dayOfMonth;
     TextView tanggaltugas;
     LinearLayout tanggaltugaslayout;
-    EditText judul, file, youtube;
+    EditText judul, youtube;
     private RequestQueue rQueue;
+    SpinnerAdapter spinnerAdapter;
+    private String nameoffile;
+    private Uri urioffile;
+
+    private Button btnchoose;
+    private TextView txtfile;
+    private String upload_URL = "https://serunibelajar.co.id/absensi/tambahtugas.php";
+    private ArrayList<HashMap<String, String>> arraylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +78,22 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
         Tools.setSystemBarColor(this, R.color.colortop);
 
         judul = findViewById(R.id.judultugas);
-        file = findViewById(R.id.filetugas);
         youtube = findViewById(R.id.youtubetugas);
+
+        btnchoose = findViewById(R.id.btn_choose);
+        txtfile = findViewById(R.id.file);
+        nameoffile = "";
+        urioffile = null;
+
+        btnchoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("application/pdf");
+                startActivityForResult(intent,1);
+            }
+        });
 
         ImageView next = findViewById(R.id.buttonnext);
         next.setOnClickListener(new View.OnClickListener() {
@@ -82,14 +119,13 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
                     Toast.makeText(Tambahtugas_Activity.this, "Isi Judul Tugas Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(tanggaltugas.getText().toString().equals("Tanggal Tugas"))
+                if(tanggaltugas.getText().toString().equals("Tanggal Deadline Tugas"))
                 {
-                    Toast.makeText(Tambahtugas_Activity.this, "Isi Tanggal Tugas Terlebih Dahulu", Toast.LENGTH_LONG).show();
+                    Toast.makeText(Tambahtugas_Activity.this, "Isi Tanggal Deadline Tugas Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     return;
                 }
-                if(file.getText().toString().equals(""))
-                {
-                    Toast.makeText(Tambahtugas_Activity.this, "Isi Link File Tugas Terlebih Dahulu", Toast.LENGTH_LONG).show();
+                if (txtfile.getText().toString().equals("")) {
+                    Toast.makeText(Tambahtugas_Activity.this, "Silahkan Pilih File Bahan Elearning Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     return;
                 }
                 if(youtube.getText().toString().equals(""))
@@ -99,7 +135,8 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
                 }
 
                 SessionManager sessionManager = new SessionManager(Tambahtugas_Activity.this);
-                inserttugas(getIntent().getStringExtra("sekolah"), String.valueOf(spinnerjurusan.getSelectedItemPosition()), String.valueOf(spinnerkelas.getSelectedItemPosition()), String.valueOf(spinnermapel.getSelectedItemPosition()), judul.getText().toString(), tanggaltugas.getText().toString(), file.getText().toString(), youtube.getText().toString(), sessionManager.getUserDetail().get("NAMALENGKAP"));
+//                inserttugas(getIntent().getStringExtra("sekolah"), String.valueOf(spinnerjurusan.getSelectedItemPosition()), String.valueOf(spinnerkelas.getSelectedItemPosition()), String.valueOf(spinnermapel.getSelectedItemPosition()), judul.getText().toString(), tanggaltugas.getText().toString(), file.getText().toString(), youtube.getText().toString(), sessionManager.getUserDetail().get("NAMALENGKAP"));
+                uploadPDF(spinnermapel.getSelectedItem().toString(), spinnerkelas.getSelectedItem().toString(), spinnerjurusan.getSelectedItem().toString(), getIntent().getStringExtra("sekolah"),getIntent().getStringExtra("nip"), judul.getText().toString(), tanggaltugas.getText().toString(),nameoffile,urioffile, youtube.getText().toString());
             }
         });
 
@@ -127,14 +164,19 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
                 datePickerDialog.show();
             }
         });
-        jurusan = new ArrayList<String>();
-        kelas = new ArrayList<String>();
-        mapel = new ArrayList<String>();
+
+        namajurusan = new ArrayList<String>();
+        kodejurusan = new ArrayList<String>();
+        namakelas = new ArrayList<String>();
+        kodekelas = new ArrayList<String>();
+        namamapel = new ArrayList<String>();
+        kodemapel = new ArrayList<String>();
+
         spinnerjurusan = findViewById(R.id.spinnerjurusan);
         spinnerjurusan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getKelas(i);
+                getKelas(adapterView.getItemAtPosition(i).toString(), getIntent().getStringExtra("sekolah"));
             }
 
             @Override
@@ -148,7 +190,7 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
         spinnerkelas.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getMapel(i);
+                getMapel(adapterView.getItemAtPosition(i).toString(), spinnerjurusan.getSelectedItem().toString() ,getIntent().getStringExtra("sekolah"));
             }
 
             @Override
@@ -159,7 +201,7 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
 
         spinnermapel = findViewById(R.id.spinnermapel);
 
-        getJurusan();
+        getJurusan(getIntent().getStringExtra("sekolah"));
     }
 
     private void inserttugas(String sekolah, String jurusan, String kelas, String mapel, String judul, String tanggal, String file, String youtube, String namalengkap) {
@@ -206,8 +248,8 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
         rQueue.add(stringRequest);
     }
 
-    private void getMapel(int i) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/getmapel.php",
+    private void getMapel(String kelas, String jurusan, String sekolah) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/getmapel.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -231,38 +273,48 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(Tambahtugas_Activity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                params.put("jurusan", String.valueOf(spinnerjurusan.getSelectedItemPosition()));
-                params.put("kelas", String.valueOf(i));
+                params.put("sekolah", sekolah);
+                params.put("jurusan", jurusan);
+                params.put("kelas", firstTwo(kelas));
                 return params;
             }
-        };;
+        };
+        ;
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
+    public String firstTwo(String str) {
+        return str.length() < 2 ? str : str.substring(0, 2);
+    }
+
+
     private void getmapel(JSONArray j) {
-        mapel.clear();
-        mapel.add("Pilih Mapel");
-        for(int i=0;i<j.length();i++){
+        namamapel.clear();
+        kodemapel.clear();
+        namamapel.add("Pilih Mapel");
+        kodemapel.add("0000");
+        for (int i = 0; i < j.length(); i++) {
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                mapel.add(json.getString("nama_mapel"));;
+                namamapel.add(json.getString("nama"));
+                kodemapel.add(json.getString("kode_mapel"));
+                ;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnermapel.setAdapter(new ArrayAdapter<String>(Tambahtugas_Activity.this, R.layout.text_spinner, R.id.textView, mapel));
+        spinnerAdapter = new SpinnerAdapter(Tambahtugas_Activity.this, namamapel, kodemapel);
+        spinnermapel.setAdapter(spinnerAdapter);
     }
 
-    private void getKelas(int itemAtPosition) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/kelas.php",
+    private void getKelas(String kode_jurusan, String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/kelas.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -284,39 +336,42 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(Tambahtugas_Activity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                params.put("jurusan", String.valueOf(itemAtPosition));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("kode_jurusan", kode_jurusan);
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getkelas(JSONArray j) {
-        kelas.clear();
-        kelas.add("Pilih Kelas");
+        kodekelas.clear();
+        namakelas.clear();
+        namakelas.add("Pilih Kelas");
+        kodekelas.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                kelas.add(json.getString("nama_kelas"));;
+                namakelas.add(json.getString("nama_kelas"));
+                kodekelas.add(json.getString("kode_kelas"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerkelas.setAdapter(new ArrayAdapter<String>(Tambahtugas_Activity.this, R.layout.text_spinner, R.id.textView, kelas));
+        spinnerAdapter = new SpinnerAdapter(Tambahtugas_Activity.this, namakelas, kodekelas);
+        spinnerkelas.setAdapter(spinnerAdapter);
     }
 
-    private void getJurusan() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/jurusan.php",
+    private void getJurusan(String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/jurusan.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -338,34 +393,175 @@ public class Tambahtugas_Activity extends AppCompatActivity implements AdapterVi
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(Tambahtugas_Activity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getjurusan(JSONArray j) {
-        jurusan.clear();
-        jurusan.add("Pilih Jurusan");
+        kodejurusan.clear();
+        namajurusan.clear();
+        namajurusan.add("Pilih Jurusan");
+        kodejurusan.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                jurusan.add(json.getString("nama_jurusan"));;
+                namajurusan.add(json.getString("nama_jurusan"));
+                kodejurusan.add(json.getString("kode_jurusan"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerjurusan.setAdapter(new ArrayAdapter<String>(Tambahtugas_Activity.this, R.layout.text_spinner, R.id.textView, jurusan));
+        spinnerAdapter = new SpinnerAdapter(Tambahtugas_Activity.this, namajurusan, kodejurusan);
+        spinnerjurusan.setAdapter(spinnerAdapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            // Get the Uri of the selected file
+            Uri uri = data.getData();
+            String uriString = uri.toString();
+            File myFile = new File(uriString);
+            String path = myFile.getAbsolutePath();
+            String displayName = null;
+
+            if (uriString.startsWith("content://")) {
+                Cursor cursor = null;
+                try {
+                    cursor = this.getContentResolver().query(uri, null, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        Log.d("nameeeee>>>>  ",displayName);
+
+                        txtfile.setText(displayName);
+                        nameoffile = displayName;
+                        urioffile = uri;
+                    }
+                } finally {
+                    cursor.close();
+                }
+            } else if (uriString.startsWith("file://")) {
+                displayName = myFile.getName();
+                Log.d("nameeeee>>>>  ",displayName);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    private void uploadPDF(String kode_mapel, String kode_kelas, String kode_jurusan, String npsn, String nip, String judul, String deadline,final String pdfname, Uri pdffile, String video){
+
+        InputStream iStream = null;
+        try {
+
+            iStream = getContentResolver().openInputStream(pdffile);
+            final byte[] inputData = getBytes(iStream);
+
+            VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, upload_URL,
+                    new Response.Listener<NetworkResponse>() {
+                        @Override
+                        public void onResponse(NetworkResponse response) {
+                            Log.d("ressssssoo",new String(response.data));
+                            rQueue.getCache().clear();
+                            try {
+                                JSONObject jsonObject = new JSONObject(new String(response.data));
+                                jsonObject.toString().replace("\\\\","");
+
+                                if (jsonObject.getString("status").equals("true")) {
+                                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(getApplicationContext(), jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }) {
+
+                /*
+                 * If you want to add more parameters with the image
+                 * you can do it here
+                 * here we have only one parameter with the image
+                 * which is tags
+                 * */
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    SimpleDateFormat timeStampFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date myDate = new Date();
+                    Map<String, String> params = new HashMap<>();
+                    params.put("kode_mapel", kode_mapel);
+                    params.put("kode_kelas", kode_kelas);
+                    params.put("kode_jurusan", kode_jurusan);
+                    params.put("npsn", npsn);
+                    params.put("nip", nip);
+                    params.put("judul", judul);
+                    params.put("tgl_selesai", deadline);
+                    params.put("video", video);
+                    params.put("tgl_upload", timeStampFormat.format(myDate) + " 00:00:00");
+                    return params;
+                }
+
+                /*
+                 *pass files using below method
+                 * */
+                @Override
+                protected Map<String, DataPart> getByteData() {
+                    Map<String, DataPart> params = new HashMap<>();
+
+                    params.put("filename", new DataPart(pdfname ,inputData));
+                    return params;
+                }
+            };
+
+
+            volleyMultipartRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    0,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            rQueue = Volley.newRequestQueue(Tambahtugas_Activity.this);
+            rQueue.add(volleyMultipartRequest);
+
+
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    public byte[] getBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+
+        int len = 0;
+        while ((len = inputStream.read(buffer)) != -1) {
+            byteBuffer.write(buffer, 0, len);
+        }
+        return byteBuffer.toByteArray();
     }
 
 

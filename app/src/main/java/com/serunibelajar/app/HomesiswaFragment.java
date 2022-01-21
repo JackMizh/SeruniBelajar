@@ -73,7 +73,7 @@ public class HomesiswaFragment extends Fragment {
         btnelearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profilesiswa.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profilesiswa.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -111,7 +111,7 @@ public class HomesiswaFragment extends Fragment {
         btnmapel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profilesiswa.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profilesiswa.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -149,7 +149,7 @@ public class HomesiswaFragment extends Fragment {
         btntugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profilesiswa.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profilesiswa.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -187,7 +187,37 @@ public class HomesiswaFragment extends Fragment {
         btnnilai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Segera Hadir!", Toast.LENGTH_LONG).show();
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profilesiswa.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                JSONObject j = null;
+                                try {
+                                    j = new JSONObject(response);
+                                    resultprofilesiswa = j.getJSONArray("result");
+                                    getNilai(resultprofilesiswa);
+
+                                } catch (JSONException e) {
+                                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }){
+                    @Override
+                    protected Map<String, String> getParams()  {
+                        Map<String,String>parms=new HashMap<String, String>();
+                        SessionManager sessionManager = new SessionManager(getActivity());
+                        parms.put("email", sessionManager.getUserDetail().get("EMAIL"));
+                        return parms;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
             }
         });
 
@@ -195,7 +225,7 @@ public class HomesiswaFragment extends Fragment {
         btn_sekolah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profilesiswa.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profilesiswa.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -232,6 +262,22 @@ public class HomesiswaFragment extends Fragment {
         return root;
     }
 
+    private void getNilai(JSONArray j) {
+        for(int i=0;i<j.length();i++){
+            try {
+                //Getting json object
+                JSONObject json = j.getJSONObject(i);
+                Intent in = new Intent(getActivity(), NilaiActivity.class);
+                in.putExtra("previllage", "Siswa");
+                in.putExtra("sekolah", json.getString("npsn"));
+                in.putExtra("nisn", json.getString("nisn"));
+                startActivity(in);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void getTugas(JSONArray j) {
         for(int i=0;i<j.length();i++){
             try {
@@ -239,7 +285,8 @@ public class HomesiswaFragment extends Fragment {
                 JSONObject json = j.getJSONObject(i);
                 Intent in = new Intent(getActivity(), TugasActivity.class);
                 in.putExtra("previllage", "Siswa");
-                in.putExtra("sekolah", json.getString("sekolah"));
+                in.putExtra("sekolah", json.getString("npsn"));
+                in.putExtra("nip", "");
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -254,7 +301,8 @@ public class HomesiswaFragment extends Fragment {
                 JSONObject json = j.getJSONObject(i);
                 Intent in = new Intent(getActivity(), ElearningActivity.class);
                 in.putExtra("previllage", "Siswa");
-                in.putExtra("sekolah", json.getString("sekolah"));
+                in.putExtra("sekolah", json.getString("npsn"));
+                in.putExtra("nip", "");
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -269,7 +317,7 @@ public class HomesiswaFragment extends Fragment {
                 JSONObject json = j.getJSONObject(i);
                 Intent in = new Intent(getActivity(), SekolahActivity.class);
                 in.putExtra("previllage", "Siswa");
-                in.putExtra("sekolah", json.getString("sekolah"));
+                in.putExtra("sekolah", json.getString("npsn"));
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -284,7 +332,7 @@ public class HomesiswaFragment extends Fragment {
                 JSONObject json = j.getJSONObject(i);
                 Intent in = new Intent(getActivity(), MapelActivity.class);
                 in.putExtra("previllage", "Siswa");
-                in.putExtra("sekolah", json.getString("sekolah"));
+                in.putExtra("sekolah", json.getString("npsn"));
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();

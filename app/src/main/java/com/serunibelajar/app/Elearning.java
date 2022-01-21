@@ -2,7 +2,7 @@ package com.serunibelajar.app;
 
 public class Elearning {
 
-    public String id_elearning, sekolah_elearning, jurusan_elearning, kelas_elearning, mapel_elearning, judul_elearning, tanggal_elearning, file_elearning, youtube_elearning, guru_elearning;
+    public String id_elearning, sekolah_elearning, jurusan_elearning, kelas_elearning, mapel_elearning, judul_elearning, tanggal_elearning, file_elearning, youtube_elearning, guru_elearning, pertemuan_elearning;
 
     public Elearning() {
     }
@@ -85,5 +85,13 @@ public class Elearning {
 
     public void setGuru_elearning(String guru_elearning) {
         this.guru_elearning = guru_elearning;
+    }
+
+    public String getPertemuan_elearning() {
+        return pertemuan_elearning;
+    }
+
+    public void setPertemuan_elearning(String pertemuan_elearning) {
+        this.pertemuan_elearning = pertemuan_elearning;
     }
 }

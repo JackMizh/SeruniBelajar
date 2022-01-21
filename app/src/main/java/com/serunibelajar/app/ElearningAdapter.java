@@ -43,6 +43,9 @@ public class ElearningAdapter extends RecyclerView.Adapter<ElearningAdapter.View
         holder.judul_elearning.setText(elearning.getJudul_elearning());
         holder.mapel_elearning.setText(elearning.getMapel_elearning());
         holder.guru_elearning.setText("Guru : " + elearning.getGuru_elearning());
+        holder.pertemuan_elearning.setVisibility(View.VISIBLE);
+        holder.pertemuan_elearning.setText("Pertemuan " + elearning.getPertemuan_elearning());
+        holder.deadline_elearning.setVisibility(View.GONE);
         holder.youtube.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,7 +70,7 @@ public class ElearningAdapter extends RecyclerView.Adapter<ElearningAdapter.View
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView judul_elearning, mapel_elearning, guru_elearning;
+        public TextView judul_elearning, mapel_elearning, guru_elearning, pertemuan_elearning, deadline_elearning;
         public LinearLayout youtube, file;
 
         public ViewHolder(View itemView) {
@@ -76,8 +79,10 @@ public class ElearningAdapter extends RecyclerView.Adapter<ElearningAdapter.View
             judul_elearning = itemView.findViewById(R.id.judul_elearning);
             mapel_elearning = itemView.findViewById(R.id.mapel_elearning);
             guru_elearning = itemView.findViewById(R.id.guru_elearning);
+            deadline_elearning = itemView.findViewById(R.id.deadline_elearning);
             youtube = itemView.findViewById(R.id.youtube);
             file = itemView.findViewById(R.id.file);
+            pertemuan_elearning = itemView.findViewById(R.id.pertemuan_elearning);
         }
     }
 }

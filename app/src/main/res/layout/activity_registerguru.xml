@@ -118,43 +118,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/npsnlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35dp"
-                    android:layout_alignTop="@+id/niplayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
-                    <EditText
-                        android:id="@+id/npsn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="NPSN"
-                        android:textColorHint="#B7B7B7"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="15dp"
-                        android:textSize="15sp"
-                        android:textColor="#9D9D9D"
-                        android:fontFamily="@font/segoeui"
-                        android:inputType="text"
-                        android:background="@null"/>
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/nuptklayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35dp"
-                    android:layout_alignTop="@+id/npsnlayout"
+                    android:layout_alignTop="@+id/niplayout"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
@@ -208,13 +178,34 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tempatlahirlayout"
+                    android:id="@+id/asalsekolahlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35sp"
                     android:layout_alignTop="@+id/namalengkaplayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinnersekolah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tempatlahirlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/asalsekolahlayout"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
@@ -405,7 +396,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/jabatanlayout"
+                    android:id="@+id/tugastambahanlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -418,7 +409,7 @@
                     android:padding="13dp">
 
                     <Spinner
-                        android:id="@+id/spinnerjabatan"
+                        android:id="@+id/spinnertugastambahan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"/>
@@ -437,36 +428,6 @@
 <!--                        android:fontFamily="@font/segoeui"-->
 <!--                        android:inputType="text"-->
 <!--                        android:background="@null"/>-->
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tugastambahanlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/jabatanlayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
-                    <EditText
-                        android:id="@+id/tugastambahan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Tugas Tambahan"
-                        android:textColorHint="#B7B7B7"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="15dp"
-                        android:textSize="15sp"
-                        android:textColor="#9D9D9D"
-                        android:fontFamily="@font/segoeui"
-                        android:inputType="text"
-                        android:background="@null"/>
 
                 </LinearLayout>
 
@@ -560,78 +521,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/statuslayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/golonganlayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
-                    <Spinner
-                        android:id="@+id/spinnerstatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"/>
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/status"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint="Status"-->
-<!--                        android:textColorHint="#B7B7B7"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="15dp"-->
-<!--                        android:textSize="15sp"-->
-<!--                        android:textColor="#9D9D9D"-->
-<!--                        android:fontFamily="@font/segoeui"-->
-<!--                        android:inputType="text"-->
-<!--                        android:background="@null"/>-->
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/sekolahabdianlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/statuslayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
-                    <Spinner
-                        android:id="@+id/spinnersekolahabdian"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"/>
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/sekolahabdian"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint="Sekolah Abdian"-->
-<!--                        android:textColorHint="#B7B7B7"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="15dp"-->
-<!--                        android:textSize="15sp"-->
-<!--                        android:textColor="#9D9D9D"-->
-<!--                        android:fontFamily="@font/segoeui"-->
-<!--                        android:inputType="text"-->
-<!--                        android:background="@null"/>-->
-
-                </LinearLayout>
-
 
                 <ImageView
                     android:id="@+id/buttonnext"
@@ -641,7 +530,7 @@
                     android:backgroundTint="@color/colorPrimary"
                     android:src="@drawable/ic_baseline_chevron_right_24"
                     android:padding="5dp"
-                    android:layout_alignTop="@id/sekolahabdianlayout"
+                    android:layout_alignTop="@id/golonganlayout"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="35dp"
                     android:layout_marginTop="100dp"

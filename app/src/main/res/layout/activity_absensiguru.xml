@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MapelActivity"
+    tools:context=".AbsensiguruActivity"
     android:orientation="vertical"
     android:background="#E5E5E5">
 
@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Jadwal Mata Pelajaran"
+                android:text="Insert Absensi Siswa"
                 android:textColor="@android:color/black"
                 android:textSize="27sp"
                 android:fontFamily="@font/segoeuibold"
@@ -69,8 +69,7 @@
                         android:id="@+id/spinnerkelas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"/>
+                        android:layout_marginStart="5dp"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -95,34 +94,35 @@
                     android:layout_marginEnd="5dp">
 
                     <Spinner
-                        android:id="@+id/spinnerhari"
+                        android:id="@+id/spinnermapel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"/>
+                        android:layout_marginStart="5dp"/>
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/tanggallayout"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_btnhome"
                     android:padding="5dp"
-                    android:backgroundTint="@android:color/white"
-                    android:layout_marginEnd="5dp">
+                    android:backgroundTint="@android:color/white">
 
                     <TextView
-                        android:id="@+id/tahun"
+                        android:id="@+id/tanggal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Tahun A."
-                        android:layout_gravity="center"
-                        android:textColor="@android:color/black"
                         android:textSize="15sp"
-                        android:fontFamily="@font/segoeui"
+                        android:textColor="@android:color/black"
+                        android:text="Tanggal"
                         android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"/>
+                        android:layout_marginEnd="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                        android:drawableTint="@android:color/black"
+                        android:gravity="center_vertical"/>
 
                 </LinearLayout>
             </LinearLayout>
@@ -134,39 +134,39 @@
                 android:weightSum="2"
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="15dp">
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/btncari"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="match_parent"
+                    android:layout_height="35dp"
                     android:background="@drawable/bg_btnhome"
-                    android:padding="5dp"
-                    android:backgroundTint="@android:color/white"
-                    android:layout_marginEnd="5dp">
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_gravity="center"
+                    android:text="Cari"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/segoeui"
+                    android:layout_marginEnd="5dp"/>
 
-                    <Spinner
-                        android:id="@+id/spinnersemester"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"/>
+                <Button
+                    android:id="@+id/btntambah"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="35dp"
+                    android:background="@drawable/bg_btnhome"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_gravity="center"
+                    android:text="Tambah"
+                    android:textColor="@android:color/white"
+                    android:textSize="15sp"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/segoeui"/>
 
-                </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btncari"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="35dp"
-                        android:background="@drawable/bg_btnhome"
-                        android:backgroundTint="@color/colorPrimary"
-                        android:text="Cari"
-                        android:textColor="@android:color/white"
-                        android:textSize="15sp"
-                        android:textAllCaps="false"
-                        android:fontFamily="@font/segoeui"/>
             </LinearLayout>
+
 
             <HorizontalScrollView
                 android:layout_width="wrap_content"
@@ -198,9 +198,9 @@
                             android:layout_marginStart="20dp"/>
 
                         <TextView
-                            android:layout_width="100dp"
+                            android:layout_width="150dp"
                             android:layout_height="35dp"
-                            android:text="Mata Pelajaran"
+                            android:text="Nama Siswa"
                             android:textColor="@android:color/white"
                             android:textSize="10dp"
                             android:fontFamily="@font/montserrat_bold"
@@ -210,17 +210,7 @@
                         <TextView
                             android:layout_width="70dp"
                             android:layout_height="35dp"
-                            android:text="Mulai"
-                            android:textColor="@android:color/white"
-                            android:textSize="10dp"
-                            android:fontFamily="@font/montserrat_bold"
-                            android:gravity="center_vertical"
-                            android:layout_marginStart="20dp"/>
-
-                        <TextView
-                            android:layout_width="70dp"
-                            android:layout_height="35dp"
-                            android:text="Selesai"
+                            android:text="Status"
                             android:textColor="@android:color/white"
                             android:textSize="10dp"
                             android:fontFamily="@font/montserrat_bold"
@@ -229,10 +219,11 @@
                     </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerviewmapel"
+                        android:id="@+id/recyclerviewabsensi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        tools:listitem="@layout/mapel_layout"/>
+                        tools:listitem="@layout/absensiguru_layout"
+                        android:layout_marginBottom="20dp"/>
 
 
                 </LinearLayout>

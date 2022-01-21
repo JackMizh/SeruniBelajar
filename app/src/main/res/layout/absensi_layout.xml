@@ -46,4 +46,14 @@
         android:gravity="center_vertical"
         android:layout_marginStart="20dp"/>
 
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="10sp"
+        android:fontFamily="@font/montserrat_bold"
+        android:gravity="center_vertical"
+        android:layout_marginStart="20dp"/>
+
 </LinearLayout>

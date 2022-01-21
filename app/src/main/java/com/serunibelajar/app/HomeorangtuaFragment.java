@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,15 +75,7 @@ public class HomeorangtuaFragment extends Fragment {
         btn_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Segera Hadir!", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        RelativeLayout btn_sekolah = root.findViewById(R.id.btn_sekolah);
-        btn_sekolah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profileorangtua.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileorangtua.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -90,7 +83,7 @@ public class HomeorangtuaFragment extends Fragment {
                                 try {
                                     j = new JSONObject(response);
                                     resultprofileorangtua = j.getJSONArray("result");
-                                    getProfileorangtua(resultprofileorangtua);
+                                    getProfileorangtua(resultprofileorangtua, "absensi");
 
                                 } catch (JSONException e) {
                                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
@@ -107,7 +100,45 @@ public class HomeorangtuaFragment extends Fragment {
                     protected Map<String, String> getParams()  {
                         Map<String,String>parms=new HashMap<String, String>();
                         SessionManager sessionManager = new SessionManager(getActivity());
-                        parms.put("email", sessionManager.getUserDetail().get("EMAIL"));
+                        parms.put("nik", sessionManager.getUserDetail().get("EMAIL"));
+                        return parms;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
+            }
+        });
+
+        RelativeLayout btn_sekolah = root.findViewById(R.id.btn_sekolah);
+        btn_sekolah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileorangtua.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                JSONObject j = null;
+                                try {
+                                    j = new JSONObject(response);
+                                    resultprofileorangtua = j.getJSONArray("result");
+                                    getProfileorangtua(resultprofileorangtua, "sekolah");
+
+                                } catch (JSONException e) {
+                                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }){
+                    @Override
+                    protected Map<String, String> getParams()  {
+                        Map<String,String>parms=new HashMap<String, String>();
+                        SessionManager sessionManager = new SessionManager(getActivity());
+                        parms.put("nik", sessionManager.getUserDetail().get("EMAIL"));
                         return parms;
                     }
                 };
@@ -120,21 +151,52 @@ public class HomeorangtuaFragment extends Fragment {
         btn_nilai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Segera Hadir!", Toast.LENGTH_LONG).show();
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileorangtua.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                JSONObject j = null;
+                                try {
+                                    j = new JSONObject(response);
+                                    resultprofileorangtua = j.getJSONArray("result");
+                                    getProfileorangtua(resultprofileorangtua, "nilai");
+
+                                } catch (JSONException e) {
+                                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }){
+                    @Override
+                    protected Map<String, String> getParams()  {
+                        Map<String,String>parms=new HashMap<String, String>();
+                        SessionManager sessionManager = new SessionManager(getActivity());
+                        parms.put("nik", sessionManager.getUserDetail().get("EMAIL"));
+                        return parms;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
             }
         });
 
         return root;
     }
 
-    private void getProfileorangtua(JSONArray j) {
+    private void getProfileorangtua(JSONArray j, String usage) {
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
                 Intent in = new Intent(getActivity(), PilihanakActivity.class);
                 in.putExtra("previllage", "Orang Tua");
-                in.putExtra("nik", json.getString("nik_orangtua"));
+                in.putExtra("nik", json.getString("nik_wali"));
+                in.putExtra("usage", usage);
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();

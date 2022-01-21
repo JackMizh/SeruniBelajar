@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,7 +46,7 @@ public class ProfilesiswaActivity extends AppCompatActivity {
         });
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profilesiswa.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profilesiswa.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -85,41 +86,37 @@ public class ProfilesiswaActivity extends AppCompatActivity {
                 JSONObject json = j.getJSONObject(i);
 
                 TextView txtnisn = findViewById(R.id.txtnisn);
-                TextView txtnpsn = findViewById(R.id.txtnpsn);
                 TextView txtnipd = findViewById(R.id.txtnipd);
-                TextView txtnikayah = findViewById(R.id.txtnikayah);
-                TextView txtnikibu = findViewById(R.id.txtnikibu);
                 TextView txtnikwali = findViewById(R.id.txtnikwali);
                 TextView txtnamalengkap = findViewById(R.id.txtnamalengkap);
                 TextView txtjk = findViewById(R.id.txtjk);
                 TextView txtagama = findViewById(R.id.txtagama);
                 TextView txtnohp = findViewById(R.id.txtnohp);
-                TextView txtstatus = findViewById(R.id.txtstatus);
                 TextView txtttl = findViewById(R.id.txtttl);
                 TextView txtasalsekolah = findViewById(R.id.txtasalsekolah);
+                TextView txtjurusan = findViewById(R.id.txtjurusan);
+                TextView txtkelas = findViewById(R.id.txtkelas);
                 CircleImageView profileimage = findViewById(R.id.profile_image);
                 TextView txtemail = findViewById(R.id.txtemail);
                 TextView txtalamat = findViewById(R.id.txtalamat);
 
-                txtnisn.setText(json.getString("nisn_siswa"));
-                txtnpsn.setText(json.getString("npsn_siswa"));
-                txtnipd.setText(json.getString("nipd_siswa"));
-                txtnikayah.setText(json.getString("nik_ayah"));
-                txtnikibu.setText(json.getString("nik_ibu"));
+                txtnisn.setText(json.getString("nisn"));
+                txtnipd.setText(json.getString("nipd"));
                 txtnikwali.setText(json.getString("nik_wali"));
-                txtnamalengkap.setText(json.getString("namalengkap_siswa"));
-                txtjk.setText(json.getString("jeniskelamin_siswa"));
-                txtagama.setText(json.getString("agama_siswa"));
-                txtalamat.setText(json.getString("alamat_siswa"));
-                txtnohp.setText(json.getString("nohp_siswa"));
-                txtstatus.setText(json.getString("status_siswa"));
-                txtttl.setText(json.getString("tempatlahir_siswa") + ", " + json.getString("tanggallahir_siswa"));
-                txtasalsekolah.setText(json.getString("asalsekolah_siswa"));
-                if(json.getString("foto_siswa").equals(""))
+                txtnamalengkap.setText(json.getString("nama"));
+                txtjk.setText(json.getString("nama_jk"));
+                txtagama.setText(json.getString("nama_agama"));
+                txtalamat.setText(json.getString("alamat"));
+                txtnohp.setText(json.getString("no_hp"));
+                txtttl.setText(json.getString("tempat_lahir") + ", " + json.getString("tanggal_lahir"));
+                txtasalsekolah.setText(json.getString("nama_sekolah"));
+                txtjurusan.setText(json.getString("nama_jurusan"));
+                txtkelas.setText(json.getString("nama_kelas"));
+                if(json.getString("foto").equals(""))
                 {
                     profileimage.setImageResource(R.drawable.logoputih);
                 }else {
-                    Glide.with(ProfilesiswaActivity.this).load(json.getString("foto_siswa")).into(profileimage);
+                    Glide.with(ProfilesiswaActivity.this).load(json.getString("foto")).into(profileimage);
                 }
                 txtemail.setText(json.getString("email"));
             } catch (JSONException e) {

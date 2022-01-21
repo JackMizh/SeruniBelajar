@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nilai Siswa"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:fontFamily="@font/segoeuibold"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/siswalayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/slider_bg"
+        android:backgroundTint="#ECECEC"
+        android:padding="13dp">
+
+        <Spinner
+            android:id="@+id/spinnersiswa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/statuslayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/slider_bg"
+        android:backgroundTint="#ECECEC"
+        android:padding="13dp">
+
+        <EditText
+            android:id="@+id/nilaisiswa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:textColor="#9D9D9D"
+            android:textSize="15sp"
+            android:fontFamily="@font/segoeui"
+            android:hint="Nilai Siswa"
+            android:inputType="number"
+            android:textColorHint="#9D9D9D"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btntambah"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_btnhome"
+        android:backgroundTint="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:text="Tambah"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/segoeui"
+        android:layout_marginBottom="20dp"/>
+
+</LinearLayout>

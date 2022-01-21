@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,7 +20,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -31,21 +29,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegistersiswaActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener{
 
     LinearLayout tanggallahirlayout;
-    Spinner spinnerstatus, spinneragama, spinnerjk, spinnersekolah;
+    Spinner spinneragama, spinnerjk, spinnersekolah, spinnerjurusan, spinnerkelas;
     TextView tanggallahir;
-    private JSONArray result, resultagama, resultstatus, resultsekolah;
-    private ArrayList<String> jk, agama, status, sekolah;
+    private JSONArray result, resultagama, resultsekolah, resultjurusan, resultkelas;
+    private ArrayList<String> namajk, idjk, namaagama, idagama, namasekolah, npsnsekolah, namajurusan, kodejurusan, namakelas, kodekelas;
     Calendar calendar;
     DatePickerDialog datePickerDialog;
     int year,month,dayOfMonth;
-    EditText nisn, npsn, nipd, nama, tempatlahir, alamat, nohp, nikayah, nikibu, nikwali;
+    EditText nisn, nipd, nama, tempatlahir, alamat, nohp, nikwali;
+    SpinnerAdapter spinnerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,27 +52,58 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
 
         Tools.setSystemBarColor(this, R.color.colortop);
 
-        jk = new ArrayList<String>();
-        agama = new ArrayList<String>();
-        status = new ArrayList<String>();
-        sekolah = new ArrayList<String>();
+        namajk = new ArrayList<String>();
+        idjk = new ArrayList<String>();
+        namaagama = new ArrayList<String>();
+        idagama = new ArrayList<String>();
+        namasekolah = new ArrayList<String>();
+        npsnsekolah = new ArrayList<String>();
+        namajurusan = new ArrayList<String>();
+        kodejurusan = new ArrayList<String>();
+        namakelas = new ArrayList<String>();
+        kodekelas = new ArrayList<String>();
+
         calendar = Calendar.getInstance();
+
         spinnerjk = (Spinner) findViewById(R.id.spinnerjk);
         spinneragama = (Spinner) findViewById(R.id.spinneragama);
-        spinnerstatus = (Spinner) findViewById(R.id.spinnerstatus);
         spinnersekolah = (Spinner) findViewById(R.id.spinnersekolah);
+        spinnerjurusan = (Spinner) findViewById(R.id.spinnerjurusan);
+        spinnerkelas = (Spinner) findViewById(R.id.spinnerkelas);
+
         tanggallahirlayout = (LinearLayout) findViewById(R.id.tanggallahirlayout);
         tanggallahir = (TextView) findViewById(R.id.tanggallahir);
         nisn = (EditText) findViewById(R.id.nisn);
-        npsn = (EditText) findViewById(R.id.npsn);
         nipd = (EditText) findViewById(R.id.nipd);
         nama = (EditText) findViewById(R.id.namalengkap);
         tempatlahir = (EditText) findViewById(R.id.tempatlahir);
         alamat = (EditText) findViewById(R.id.alamat);
         nohp = (EditText) findViewById(R.id.nohp);
-        nikayah = (EditText) findViewById(R.id.nikayah);
-        nikibu = (EditText) findViewById(R.id.nikibu);
         nikwali = (EditText) findViewById(R.id.nikwali);
+
+        spinnersekolah.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                getJurusan(adapterView.getItemAtPosition(i).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        spinnerjurusan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                getKelas(adapterView.getItemAtPosition(i).toString(), spinnersekolah.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         tanggallahirlayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +129,6 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
 
         getjk();
         getagama();
-        getstatus();
         getsekolah();
 
 
@@ -109,15 +137,9 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
             @Override
             public void onClick(View view) {
 
-                spinnerstatus = findViewById(R.id.spinnerstatus);
                 if (nisn.getText().toString().isEmpty()) {
                     nisn.setError("NISN is required");
                     nisn.requestFocus();
-                    return;
-                }
-                if (npsn.getText().toString().isEmpty()) {
-                    npsn.setError("NPSN is required");
-                    npsn.requestFocus();
                     return;
                 }
                 if (nipd.getText().toString().isEmpty()) {
@@ -135,6 +157,16 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
                     spinnersekolah.requestFocus();
                     return;
                 }
+                if (spinnerjurusan.getSelectedItem().toString().equals("Jurusan")) {
+                    Toast.makeText(RegistersiswaActivity.this, "Jurusan is required", Toast.LENGTH_LONG).show();
+                    spinnerjurusan.requestFocus();
+                    return;
+                }
+                if (spinnerkelas.getSelectedItem().toString().equals("Kelas")) {
+                    Toast.makeText(RegistersiswaActivity.this, "Kelas is required", Toast.LENGTH_LONG).show();
+                    spinnerkelas.requestFocus();
+                    return;
+                }
                 if (tempatlahir.getText().toString().isEmpty()) {
                     tempatlahir.setError("Tempat Lahir is required");
                     tempatlahir.requestFocus();
@@ -145,12 +177,12 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
                     tanggallahir.requestFocus();
                     return;
                 }
-                if (spinnerjk.getSelectedItem().toString().equals("Jenis Kelamin")) {
+                if (spinnerjk.getSelectedItem().toString().equals("Belum Terisi")) {
                     Toast.makeText(RegistersiswaActivity.this, "Jenis Kelamin is required", Toast.LENGTH_LONG).show();
                     spinnerjk.requestFocus();
                     return;
                 }
-                if (spinneragama.getSelectedItem().toString().equals("Agama")) {
+                if (spinneragama.getSelectedItem().toString().equals("Belum Terisi")) {
                     Toast.makeText(RegistersiswaActivity.this, "Agama is required", Toast.LENGTH_LONG).show();
                     spinneragama.requestFocus();
                     return;
@@ -165,37 +197,26 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
                     nohp.requestFocus();
                     return;
                 }
-                if (spinnerstatus.getSelectedItem().toString().equals("Status")) {
-                    Toast.makeText(RegistersiswaActivity.this, "Status is required", Toast.LENGTH_LONG).show();
-                    spinnerstatus.requestFocus();
-                    return;
-                }
-                if (nikayah.getText().toString().isEmpty()) {
-                    nikayah.setError("NIK Ayah is required");
-                    nikayah.requestFocus();
-                    return;
-                }
-                if (nikibu.getText().toString().isEmpty()) {
-                    nikibu.setError("NIK Ibu is required");
-                    nikibu.requestFocus();
+                if (nikwali.getText().toString().isEmpty()) {
+                    nikwali.setError("NIK Wali is required");
+                    nikwali.requestFocus();
                     return;
                 }
 
                 Intent i = new Intent(RegistersiswaActivity.this, LastregisterActivity.class);
                 i.putExtra("nisn", nisn.getText().toString());
-                i.putExtra("npsn", npsn.getText().toString());
                 i.putExtra("nipd", nipd.getText().toString());
                 i.putExtra("nama", nama.getText().toString());
-                i.putExtra("sekolah", String.valueOf(spinnersekolah.getSelectedItemPosition()));
+                i.putExtra("npsn", spinnersekolah.getSelectedItem().toString());
+                i.putExtra("jurusan", spinnerjurusan.getSelectedItem().toString());
+                i.putExtra("kelas", spinnerkelas.getSelectedItem().toString());
                 i.putExtra("tempatlahir", tempatlahir.getText().toString());
                 i.putExtra("tanggallahir", tanggallahir.getText().toString());
-                i.putExtra("jeniskelamin", String.valueOf(spinnerjk.getSelectedItemPosition()));
+                i.putExtra("jeniskelamin", spinnerjk.getSelectedItem().toString());
+                i.putExtra("agama", spinneragama.getSelectedItem().toString());
                 i.putExtra("alamat", alamat.getText().toString());
-                i.putExtra("agama", String.valueOf(spinneragama.getSelectedItemPosition()));
                 i.putExtra("nohp", nohp.getText().toString());
-                i.putExtra("status", String.valueOf(spinnerstatus.getSelectedItemPosition()));
-                i.putExtra("nikayah", nikayah.getText().toString());
-                i.putExtra("nikibu", nikibu.getText().toString());
+                i.putExtra("status", "Aktif");
                 i.putExtra("nikwali", nikwali.getText().toString());
                 i.putExtra("previllage", "Siswa");
                 startActivity(i);
@@ -212,7 +233,7 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
     }
 
     private void getsekolah() {
-        StringRequest stringRequest = new StringRequest("https://plazatanaman.com/sipren/sekolahabdian.php",
+        StringRequest stringRequest = new StringRequest("https://serunibelajar.co.id/absensi/sekolahabdian.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -238,34 +259,38 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
     }
 
     private void getSekolah(JSONArray j) {
-        sekolah.clear();
-        sekolah.add("Asal Sekolah");
+        npsnsekolah.clear();
+        namasekolah.clear();
+        namasekolah.add("Asal Sekolah");
+        npsnsekolah.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                sekolah.add(json.getString("nama_sekolah"));
+                namasekolah.add(json.getString("nama"));
+                npsnsekolah.add(json.getString("npsn"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnersekolah.setAdapter(new ArrayAdapter<String>(RegistersiswaActivity.this, R.layout.text_spinner, R.id.textView, sekolah));
+        spinnerAdapter = new SpinnerAdapter(RegistersiswaActivity.this, namasekolah, npsnsekolah);
+        spinnersekolah.setAdapter(spinnerAdapter);
     }
 
-    private void getstatus() {
-        StringRequest stringRequest = new StringRequest("https://plazatanaman.com/sipren/status.php",
+    private void getJurusan(String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/jurusan.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         JSONObject j = null;
                         try {
                             j = new JSONObject(response);
-                            resultstatus = j.getJSONArray("result");
-                            getStatus(resultstatus);
+                            resultjurusan = j.getJSONArray("result");
+                            getjurusan(resultjurusan);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -277,32 +302,100 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
                     public void onErrorResponse(VolleyError error) {
 
                     }
-                });
+                }){
+            @Override
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("npsn",npsn);
+                return parms;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
-    private void getStatus(JSONArray j) {
-        status.clear();
-        status.add("Status");
+    private void getjurusan(JSONArray j) {
+        kodejurusan.clear();
+        namajurusan.clear();
+        namajurusan.add("Jurusan");
+        kodejurusan.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                status.add(json.getString("nama_status"));
+                namajurusan.add(json.getString("nama_jurusan"));
+                kodejurusan.add(json.getString("kode_jurusan"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerstatus.setAdapter(new ArrayAdapter<String>(RegistersiswaActivity.this, R.layout.text_spinner, R.id.textView, status));
+        spinnerAdapter = new SpinnerAdapter(RegistersiswaActivity.this, namajurusan, kodejurusan);
+        spinnerjurusan.setAdapter(spinnerAdapter);
+    }
+
+    private void getKelas(String kode_jurusan, String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/kelas.php",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        JSONObject j = null;
+                        try {
+                            j = new JSONObject(response);
+                            resultkelas = j.getJSONArray("result");
+                            getkelas(resultkelas);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("kode_jurusan", kode_jurusan);
+                parms.put("npsn",npsn);
+                return parms;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    private void getkelas(JSONArray j) {
+        kodekelas.clear();
+        namakelas.clear();
+        namakelas.add("Kelas");
+        kodekelas.add("0000");
+        for(int i=0;i<j.length();i++){
+            try {
+                //Getting json object
+                JSONObject json = j.getJSONObject(i);
+
+                //Adding the name of the student to array list
+                namakelas.add(json.getString("nama_kelas"));
+                kodekelas.add(json.getString("kode_kelas"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Setting adapter to show the items in the spinner
+        spinnerAdapter = new SpinnerAdapter(RegistersiswaActivity.this, namakelas, kodekelas);
+        spinnerkelas.setAdapter(spinnerAdapter);
     }
 
     private void getagama() {
-        StringRequest stringRequest = new StringRequest("https://plazatanaman.com/sipren/agama.php",
+        StringRequest stringRequest = new StringRequest("https://serunibelajar.co.id/absensi/agama.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -327,8 +420,30 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
         requestQueue.add(stringRequest);
     }
 
+    private void getAgama(JSONArray j) {
+        namaagama.clear();
+        idagama.clear();
+        for(int i=0;i<j.length();i++){
+            try {
+                //Getting json object
+                JSONObject json = j.getJSONObject(i);
+
+                //Adding the name of the student to array list
+                namaagama.add(json.getString("nama"));
+                idagama.add(json.getString("id"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //Setting adapter to show the items in the spinner
+        spinnerAdapter = new SpinnerAdapter(RegistersiswaActivity.this, namaagama, idagama);
+        spinneragama.setAdapter(spinnerAdapter);
+
+    }
+
     private void getjk() {
-        StringRequest stringRequest = new StringRequest("https://plazatanaman.com/sipren/jk.php",
+        StringRequest stringRequest = new StringRequest("https://serunibelajar.co.id/absensi/jk.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -353,43 +468,25 @@ public class RegistersiswaActivity extends AppCompatActivity implements AdapterV
         requestQueue.add(stringRequest);
     }
 
-    private void getAgama(JSONArray j) {
-        agama.clear();
-        agama.add("Agama");
-        for(int i=0;i<j.length();i++){
-            try {
-                //Getting json object
-                JSONObject json = j.getJSONObject(i);
-
-                //Adding the name of the student to array list
-                agama.add(json.getString("nama_agama"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //Setting adapter to show the items in the spinner
-        spinneragama.setAdapter(new ArrayAdapter<String>(RegistersiswaActivity.this, R.layout.text_spinner, R.id.textView, agama));
-
-    }
-
     private void getJenisKelamin(JSONArray j) {
-        jk.clear();
-        jk.add("Jenis Kelamin");
+        namajk.clear();
+        idjk.clear();
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                jk.add(json.getString("nama_jk"));
+                namajk.add(json.getString("nama"));
+                idjk.add(json.getString("id"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerjk.setAdapter(new ArrayAdapter<String>(RegistersiswaActivity.this, R.layout.text_spinner, R.id.textView, jk));
+        spinnerAdapter = new SpinnerAdapter(RegistersiswaActivity.this, namajk, idjk);
+        spinnerjk.setAdapter(spinnerAdapter);
 
     }
 

@@ -1,7 +1,7 @@
 package com.serunibelajar.app;
 
 public class Anak {
-    public String nama_siswa, nama_sekolah, id_sekolah, foto_siswa;
+    public String nama_siswa, nama_sekolah, id_sekolah, foto_siswa, email, nisn;
 
     public Anak() {
     }
@@ -36,5 +36,21 @@ public class Anak {
 
     public void setFoto_siswa(String foto_siswa) {
         this.foto_siswa = foto_siswa;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getNisn() {
+        return nisn;
+    }
+
+    public void setNisn(String nisn) {
+        this.nisn = nisn;
     }
 }

@@ -34,11 +34,12 @@ import java.util.Map;
 public class TugasActivity extends AppCompatActivity {
 
     private JSONArray resultjurusan, resultkelas;
-    private ArrayList<String> jurusan, kelas;
+    private ArrayList<String> namajurusan, kodejurusan, namakelas, kodekelas;
     Spinner spinnerjurusan, spinnerkelas;
     private List<Tugas> tugasList;
     private RecyclerView.Adapter adapter;
     private RecyclerView mList;
+    SpinnerwhiteAdapter spinnerwhiteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class TugasActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent in = new Intent(TugasActivity.this, Tambahtugas_Activity.class);
                 in.putExtra("sekolah", getIntent().getStringExtra("sekolah"));
+                in.putExtra("nip", getIntent().getStringExtra("nip"));
                 startActivity(in);
             }
         });
@@ -73,13 +75,15 @@ public class TugasActivity extends AppCompatActivity {
         mList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new TugasAdapter(this, tugasList);
 
-        jurusan = new ArrayList<String>();
-        kelas = new ArrayList<String>();
+        namajurusan = new ArrayList<String>();
+        kodejurusan = new ArrayList<String>();
+        namakelas = new ArrayList<String>();
+        kodekelas = new ArrayList<String>();
         spinnerjurusan = findViewById(R.id.spinnerjurusan);
         spinnerjurusan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getKelas(i);
+                getKelas(adapterView.getItemAtPosition(i).toString(), getIntent().getStringExtra("sekolah"));
             }
 
             @Override
@@ -117,13 +121,13 @@ public class TugasActivity extends AppCompatActivity {
             }
         });
 
-        getJurusan();
+        getJurusan(getIntent().getStringExtra("sekolah"));
         getAll();
     }
 
     private void getSearch(String jurusan, String kelas) {
         tugasList.clear();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/tugascari.php", new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/tugascari.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -132,30 +136,32 @@ public class TugasActivity extends AppCompatActivity {
                     for (int i=0; i<array.length(); i++ ){
                         JSONObject ob=array.getJSONObject(i);
                         Tugas tugas = new Tugas();
-                        tugas.setId_tugas(ob.getString("id_tugas"));
-                        tugas.setSekolah_tugas(ob.getString("sekolah_tugas"));
-                        tugas.setJurusan_tugas(ob.getString("jurusan_tugas"));
-                        tugas.setKelas_tugas(ob.getString("kelas_tugas"));
-                        tugas.setMapel_tugas(ob.getString("mapel_tugas"));
-                        tugas.setJudul_tugas(ob.getString("judul_tugas"));
-                        tugas.setTanggal_tugas(ob.getString("tanggal_tugas"));
-                        tugas.setFile_tugas(ob.getString("file_tugas"));
-                        tugas.setYoutube_tugas(ob.getString("youtube_tugas"));
-                        tugas.setGuru_tugas(ob.getString("guru_tugas"));
+                        tugas.setId_tugas(ob.getString("kode_mapel"));
+                        tugas.setSekolah_tugas(ob.getString("npsn"));
+                        tugas.setJurusan_tugas(ob.getString("kode_jurusan"));
+                        tugas.setKelas_tugas(ob.getString("kode_kelas"));
+                        tugas.setMapel_tugas(ob.getString("nama_mapel"));
+                        tugas.setJudul_tugas(ob.getString("judul"));
+                        tugas.setTanggal_tugas(ob.getString("tgl_upload"));
+                        tugas.setFile_tugas(ob.getString("tugas"));
+                        tugas.setYoutube_tugas(ob.getString("video"));
+                        tugas.setGuru_tugas(ob.getString("nama"));
+                        tugas.setPertemuan_tugas("");
+                        tugas.setDeadline_tugas(ob.getString("tgl_selesai"));
 
                         tugasList.add(tugas);
                     }
 
                     mList.setAdapter(adapter);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(TugasActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(TugasActivity.this, error.toString(), Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
@@ -173,7 +179,7 @@ public class TugasActivity extends AppCompatActivity {
 
     private void getAll() {
         tugasList.clear();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/tugas.php", new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/tugas.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -182,30 +188,32 @@ public class TugasActivity extends AppCompatActivity {
                     for (int i=0; i<array.length(); i++ ){
                         JSONObject ob=array.getJSONObject(i);
                         Tugas tugas = new Tugas();
-                        tugas.setId_tugas(ob.getString("id_tugas"));
-                        tugas.setSekolah_tugas(ob.getString("sekolah_tugas"));
-                        tugas.setJurusan_tugas(ob.getString("jurusan_tugas"));
-                        tugas.setKelas_tugas(ob.getString("kelas_tugas"));
-                        tugas.setMapel_tugas(ob.getString("mapel_tugas"));
-                        tugas.setJudul_tugas(ob.getString("judul_tugas"));
-                        tugas.setTanggal_tugas(ob.getString("tanggal_tugas"));
-                        tugas.setFile_tugas(ob.getString("file_tugas"));
-                        tugas.setYoutube_tugas(ob.getString("youtube_tugas"));
-                        tugas.setGuru_tugas(ob.getString("guru_tugas"));
+                        tugas.setId_tugas(ob.getString("kode_mapel"));
+                        tugas.setSekolah_tugas(ob.getString("npsn"));
+                        tugas.setJurusan_tugas(ob.getString("kode_jurusan"));
+                        tugas.setKelas_tugas(ob.getString("kode_kelas"));
+                        tugas.setMapel_tugas(ob.getString("nama_mapel"));
+                        tugas.setJudul_tugas(ob.getString("judul"));
+                        tugas.setTanggal_tugas(ob.getString("tgl_upload"));
+                        tugas.setFile_tugas(ob.getString("tugas"));
+                        tugas.setYoutube_tugas(ob.getString("video"));
+                        tugas.setGuru_tugas(ob.getString("nama"));
+                        tugas.setPertemuan_tugas("");
+                        tugas.setDeadline_tugas(ob.getString("tgl_selesai"));
 
                         tugasList.add(tugas);
                     }
 
                     mList.setAdapter(adapter);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    Toast.makeText(TugasActivity.this, e.toString(), Toast.LENGTH_LONG).show();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(TugasActivity.this, error.toString(), Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
@@ -219,8 +227,8 @@ public class TugasActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void getKelas(int itemAtPosition) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/kelas.php",
+    private void getKelas(String kode_jurusan, String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/kelas.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -242,39 +250,42 @@ public class TugasActivity extends AppCompatActivity {
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(TugasActivity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                params.put("jurusan", String.valueOf(itemAtPosition));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("kode_jurusan", kode_jurusan);
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getkelas(JSONArray j) {
-        kelas.clear();
-        kelas.add("Pilih Kelas");
+        kodekelas.clear();
+        namakelas.clear();
+        namakelas.add("Pilih Kelas");
+        kodekelas.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                kelas.add(json.getString("nama_kelas"));;
+                namakelas.add(json.getString("nama_kelas"));
+                kodekelas.add(json.getString("kode_kelas"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerkelas.setAdapter(new ArrayAdapter<String>(TugasActivity.this, R.layout.login_spinner, R.id.textView, kelas));
+        spinnerwhiteAdapter = new SpinnerwhiteAdapter(TugasActivity.this, namakelas, kodekelas);
+        spinnerkelas.setAdapter(spinnerwhiteAdapter);
     }
 
-    private void getJurusan() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/jurusan.php",
+    private void getJurusan(String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/jurusan.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -296,33 +307,36 @@ public class TugasActivity extends AppCompatActivity {
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(TugasActivity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getjurusan(JSONArray j) {
-        jurusan.clear();
-        jurusan.add("Pilih Jurusan");
+        kodejurusan.clear();
+        namajurusan.clear();
+        namajurusan.add("Pilih Jurusan");
+        kodejurusan.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                jurusan.add(json.getString("nama_jurusan"));;
+                namajurusan.add(json.getString("nama_jurusan"));
+                kodejurusan.add(json.getString("kode_jurusan"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerjurusan.setAdapter(new ArrayAdapter<String>(TugasActivity.this, R.layout.login_spinner, R.id.textView, jurusan));
+        spinnerwhiteAdapter = new SpinnerwhiteAdapter(TugasActivity.this, namajurusan, kodejurusan);
+        spinnerjurusan.setAdapter(spinnerwhiteAdapter);
     }
 }

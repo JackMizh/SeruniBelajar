@@ -118,43 +118,13 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/npsnlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35dp"
-                    android:layout_alignTop="@+id/nisnlayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
-                    <EditText
-                        android:id="@+id/npsn"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="NPSN"
-                        android:textColorHint="#B7B7B7"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="15dp"
-                        android:textSize="15sp"
-                        android:textColor="#9D9D9D"
-                        android:fontFamily="@font/segoeui"
-                        android:inputType="text"
-                        android:background="@null"/>
-
-                </LinearLayout>
-
-                <LinearLayout
                     android:id="@+id/nipdlayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35dp"
-                    android:layout_alignTop="@+id/npsnlayout"
+                    android:layout_alignTop="@+id/nisnlayout"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
@@ -226,20 +196,47 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"/>
 
-<!--                    <EditText-->
-<!--                        android:id="@+id/asalsekolah"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint="Asal Sekolah"-->
-<!--                        android:textColorHint="#B7B7B7"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="15dp"-->
-<!--                        android:textSize="15sp"-->
-<!--                        android:textColor="#9D9D9D"-->
-<!--                        android:fontFamily="@font/segoeui"-->
-<!--                        android:inputType="text"-->
-<!--                        android:background="@null"/>-->
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/jurusanlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/asalsekolahlayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinnerjurusan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/kelaslayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="35dp"
+                    android:layout_marginEnd="35sp"
+                    android:layout_alignTop="@+id/jurusanlayout"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/slider_bg"
+                    android:backgroundTint="#ECECEC"
+                    android:padding="13dp">
+
+                    <Spinner
+                        android:id="@+id/spinnerkelas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"/>
 
                 </LinearLayout>
 
@@ -250,7 +247,7 @@
                     android:orientation="horizontal"
                     android:layout_marginStart="35dp"
                     android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/asalsekolahlayout"
+                    android:layout_alignTop="@+id/kelaslayout"
                     android:layout_marginTop="60dp"
                     android:background="@drawable/slider_bg"
                     android:backgroundTint="#ECECEC"
@@ -434,7 +431,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/statuslayout"
+                    android:id="@+id/nikwalilayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -446,109 +443,11 @@
                     android:backgroundTint="#ECECEC"
                     android:padding="13dp">
 
-
-                    <Spinner
-                        android:id="@+id/spinnerstatus"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"/>
-
-<!--                    <EditText-->
-<!--                        android:id="@+id/statuspegawai"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:hint="Status"-->
-<!--                        android:textColorHint="#B7B7B7"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:layout_marginStart="15dp"-->
-<!--                        android:textSize="15sp"-->
-<!--                        android:textColor="#9D9D9D"-->
-<!--                        android:fontFamily="@font/segoeui"-->
-<!--                        android:inputType="text"-->
-<!--                        android:background="@null"/>-->
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/nikayahlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/statuslayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
-                    <EditText
-                        android:id="@+id/nikayah"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="NIK Ayah"
-                        android:textColorHint="#B7B7B7"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="15dp"
-                        android:textSize="15sp"
-                        android:textColor="#9D9D9D"
-                        android:fontFamily="@font/segoeui"
-                        android:inputType="text"
-                        android:background="@null"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/nikibulayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/nikayahlayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
-                    <EditText
-                        android:id="@+id/nikibu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="NIK Ibu"
-                        android:textColorHint="#B7B7B7"
-                        android:gravity="center_vertical"
-                        android:layout_gravity="center"
-                        android:layout_marginStart="15dp"
-                        android:textSize="15sp"
-                        android:textColor="#9D9D9D"
-                        android:fontFamily="@font/segoeui"
-                        android:inputType="text"
-                        android:background="@null"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/nikwalilayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginStart="35dp"
-                    android:layout_marginEnd="35sp"
-                    android:layout_alignTop="@+id/nikibulayout"
-                    android:layout_marginTop="60dp"
-                    android:background="@drawable/slider_bg"
-                    android:backgroundTint="#ECECEC"
-                    android:padding="13dp">
-
                     <EditText
                         android:id="@+id/nikwali"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="NIK Wali (Optional)"
+                        android:hint="NIK Wali"
                         android:textColorHint="#B7B7B7"
                         android:gravity="center_vertical"
                         android:layout_gravity="center"

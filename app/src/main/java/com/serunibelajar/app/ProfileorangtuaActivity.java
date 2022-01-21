@@ -46,7 +46,7 @@ public class ProfileorangtuaActivity extends AppCompatActivity {
             }
         });
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profileorangtua.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileorangtua.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -71,7 +71,7 @@ public class ProfileorangtuaActivity extends AppCompatActivity {
                     protected Map<String, String> getParams()  {
                         Map<String,String>parms=new HashMap<String, String>();
                         SessionManager sessionManager = new SessionManager(ProfileorangtuaActivity.this);
-                        parms.put("email", sessionManager.getUserDetail().get("EMAIL"));
+                        parms.put("nik", sessionManager.getUserDetail().get("EMAIL"));
                         return parms;
                     }
         };
@@ -92,30 +92,26 @@ public class ProfileorangtuaActivity extends AppCompatActivity {
                 TextView txtnamalengkap = findViewById(R.id.txtnamalengkap);
                 TextView txtttl = findViewById(R.id.txtttl);
                 TextView txtjk = findViewById(R.id.txtjk);
-                TextView txtagama = findViewById(R.id.txtagama);
                 TextView txtalamat = findViewById(R.id.txtalamat);
                 TextView txtnohp = findViewById(R.id.txtnohp);
                 TextView txtstatus = findViewById(R.id.txtstatus);
                 CircleImageView profileimage = findViewById(R.id.profile_image);
                 TextView txtpekerjaan = findViewById(R.id.txtpekerjaan);
-                TextView txtemail = findViewById(R.id.txtemail);
 
-                txtnik.setText(json.getString("nik_orangtua"));
-                txtnamalengkap.setText(json.getString("namalengkap_orangtua"));
-                txtttl.setText(json.getString("tempatlahir_orangtua") + ", " + json.getString("tanggallahir_orangtua"));
-                txtjk.setText(json.getString("jeniskelamin_orangtua"));
-                txtagama.setText(json.getString("agama_orangtua"));
-                txtalamat.setText(json.getString("alamat_orangtua"));
-                txtnohp.setText(json.getString("nohp_orangtua"));
-                txtstatus.setText(json.getString("status_orangtua"));
-                if(json.getString("foto_orangtua").equals(""))
+                txtnik.setText(json.getString("nik_wali"));
+                txtnamalengkap.setText(json.getString("nama"));
+                txtttl.setText(json.getString("tempat_lahir") + ", " + json.getString("tanggal_lahir"));
+                txtjk.setText(json.getString("nama_jk"));
+                txtalamat.setText(json.getString("alamat"));
+                txtnohp.setText(json.getString("no_hp"));
+                txtstatus.setText(json.getString("status_keluarga"));
+                if(json.getString("foto").equals(""))
                 {
                     profileimage.setImageResource(R.drawable.logoputih);
                 }else {
-                    Glide.with(ProfileorangtuaActivity.this).load(json.getString("foto_orangtua")).into(profileimage);
+                    Glide.with(ProfileorangtuaActivity.this).load(json.getString("foto")).into(profileimage);
                 }
-                txtpekerjaan.setText(json.getString("pekerjaan_orangtua"));
-                txtemail.setText(json.getString("email"));
+                txtpekerjaan.setText(json.getString("pekerjaan"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

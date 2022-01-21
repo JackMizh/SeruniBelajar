@@ -57,13 +57,14 @@ public class PilihanakActivity extends AppCompatActivity {
 
         mList.setHasFixedSize(true);
         mList.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new AnakAdapter(getApplicationContext(), anakList);
+        adapter = new AnakAdapter(getApplicationContext(), anakList, getIntent().getStringExtra("usage"));
         getAnak(getIntent().getStringExtra("nik"));
 
     }
 
     private void getAnak(String nik) {
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/anak.php", new Response.Listener<String>() {
+        anakList.clear();
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/anak.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -72,10 +73,12 @@ public class PilihanakActivity extends AppCompatActivity {
                     for (int i=0; i<array.length(); i++ ){
                         JSONObject ob=array.getJSONObject(i);
                         Anak anak = new Anak();
-                        anak.setNama_siswa(ob.getString("namalengkap_siswa"));
+                        anak.setNama_siswa(ob.getString("nama"));
                         anak.setNama_sekolah(ob.getString("nama_sekolah"));
-                        anak.setFoto_siswa(ob.getString("foto_siswa"));
-                        anak.setId_sekolah(ob.getString("id_sekolah"));
+                        anak.setFoto_siswa(ob.getString("foto"));
+                        anak.setId_sekolah(ob.getString("npsn"));
+                        anak.setEmail(ob.getString("email"));
+                        anak.setNisn(ob.getString("nisn"));
 
                         anakList.add(anak);
                     }
@@ -95,7 +98,7 @@ public class PilihanakActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> parms = new HashMap<String, String>();
-                parms.put("nik_orangtua", nik);
+                parms.put("nik_wali", nik);
                 return parms;
             }
         };

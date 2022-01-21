@@ -21,10 +21,12 @@ public class AnakAdapter extends RecyclerView.Adapter<AnakAdapter.ViewHolder>{
 
     private Context context;
     private List<Anak> list;
+    private String usage;
 
-    public AnakAdapter(Context context, List<Anak> list) {
+    public AnakAdapter(Context context, List<Anak> list, String usage) {
         this.context = context;
         this.list = list;
+        this.usage = usage;
     }
 
     @NonNull
@@ -50,11 +52,29 @@ public class AnakAdapter extends RecyclerView.Adapter<AnakAdapter.ViewHolder>{
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(view.getContext(), SekolahActivity.class);
-                in.putExtra("previllage", "Orang Tua");
-                in.putExtra("sekolah", String.valueOf(anak.getId_sekolah()));
-                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                view.getContext().startActivity(in);
+                if(usage.equals("sekolah")) {
+                    Intent in = new Intent(view.getContext(), SekolahActivity.class);
+                    in.putExtra("previllage", "Orang Tua");
+                    in.putExtra("sekolah", String.valueOf(anak.getId_sekolah()));
+                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    view.getContext().startActivity(in);
+                }
+                else if(usage.equals("absensi"))
+                {
+                    Intent in = new Intent(view.getContext(), AbsensiActivity.class);
+                    SessionManager sessionManager = new SessionManager(view.getContext());
+                    in.putExtra("nisn", anak.getNisn());
+                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    view.getContext().startActivity(in);
+                }
+                else if(usage.equals("nilai"))
+                {
+                    Intent in = new Intent(view.getContext(), NilaiActivity.class);
+                    SessionManager sessionManager = new SessionManager(view.getContext());
+                    in.putExtra("nisn", anak.getNisn());
+                    in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    view.getContext().startActivity(in);
+                }
             }
         });
     }

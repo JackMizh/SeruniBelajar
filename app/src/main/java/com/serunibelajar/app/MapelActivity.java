@@ -32,12 +32,29 @@ import java.util.Map;
 
 public class MapelActivity extends AppCompatActivity {
 
-    private JSONArray resultjurusan, resultkelas, resulthari;
-    private ArrayList<String> jurusan, kelas, hari;
-    Spinner spinnerjurusan, spinnerkelas, spinnerhari ;
+    private JSONArray resultjurusan, resultkelas;
+    String[] hari = {
+            "Pilih Hari",
+            "Senin",
+            "Selasa",
+            "Rabu",
+            "Kamis",
+            "Jumat",
+            "Sabtu",
+            "Minggu"
+    };
+
+    String[] semester = {
+            "Pilih Semest.",
+            "Ganjil",
+            "Genap"
+    };
+    private ArrayList<String> namajurusan, kodejurusan, namakelas, kodekelas;
+    Spinner spinnerjurusan, spinnerkelas, spinnerhari, spinnersemester;
     private List<Mapel> mapelList;
     private RecyclerView.Adapter adapter;
     private RecyclerView mList;
+    SpinnerwhiteAdapter spinnerwhiteAdapter;
 
 
     @Override
@@ -97,19 +114,25 @@ public class MapelActivity extends AppCompatActivity {
                     Toast.makeText(MapelActivity.this, "Pilih Tahun Akademik Terlebih Dahulu", Toast.LENGTH_LONG).show();
                     return;
                 }
+                if(spinnersemester.getSelectedItem().toString().equals("Pilih Semest."))
+                {
+                    Toast.makeText(MapelActivity.this, "Pilih Semester Terlebih Dahulu", Toast.LENGTH_LONG).show();
+                    return;
+                }
 
-                getMapel(spinnerjurusan.getSelectedItem().toString(), spinnerkelas.getSelectedItem().toString(), spinnerhari.getSelectedItem().toString(), tahun.getText().toString());
+                getMapel(getIntent().getStringExtra("sekolah") ,spinnerjurusan.getSelectedItem().toString(), spinnerkelas.getSelectedItem().toString(), spinnerhari.getSelectedItem().toString(), tahun.getText().toString(), spinnersemester.getSelectedItem().toString());
             }
         });
 
-        jurusan = new ArrayList<String>();
-        kelas = new ArrayList<String>();
-        hari = new ArrayList<String>();
+        namajurusan = new ArrayList<String>();
+        kodejurusan = new ArrayList<String>();
+        namakelas = new ArrayList<String>();
+        kodekelas = new ArrayList<String>();
         spinnerjurusan = findViewById(R.id.spinnerjurusan);
         spinnerjurusan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getKelas(i);
+                getKelas(adapterView.getItemAtPosition(i).toString(), getIntent().getStringExtra("sekolah"));
             }
 
             @Override
@@ -120,7 +143,13 @@ public class MapelActivity extends AppCompatActivity {
 
         spinnerkelas = findViewById(R.id.spinnerkelas);
 
+        spinnersemester = findViewById(R.id.spinnersemester);
+        final ArrayAdapter adapter2 = new ArrayAdapter<String>(MapelActivity.this, R.layout.login_spinner, R.id.textView, semester);
+        spinnersemester.setAdapter(adapter2);
+
         spinnerhari = findViewById(R.id.spinnerhari);
+        final ArrayAdapter adapter = new ArrayAdapter<String>(MapelActivity.this, R.layout.login_spinner, R.id.textView, hari);
+        spinnerhari.setAdapter(adapter);
         spinnerhari.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -133,12 +162,12 @@ public class MapelActivity extends AppCompatActivity {
             }
         });
 
-        getJurusan();
-        getHari();
+        getJurusan(getIntent().getStringExtra("sekolah"));
     }
 
-    private void getMapel(String jurusan, String kelas, String hari, String tahun) {
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/mapel.php", new Response.Listener<String>() {
+    private void getMapel(String sekolah ,String jurusan, String kelas, String hari, String tahun, String semester) {
+        mapelList.clear();
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/mapel.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -147,16 +176,16 @@ public class MapelActivity extends AppCompatActivity {
                     for (int i=0; i<array.length(); i++ ){
                         JSONObject ob=array.getJSONObject(i);
                         Mapel mapel = new Mapel();
-                        mapel.setId_mapel(ob.getString("id_mapel"));
-                        mapel.setNama_mapel(ob.getString("nama_mapel"));
-                        mapel.setKkm_mapel(ob.getString("kkm_mapel"));
-                        mapel.setTahunakademik_mapel(ob.getString("tahunakademik_mapel"));
-                        mapel.setHari_mapel(ob.getString("hari_mapel"));
-                        mapel.setJammulai_mapel(ob.getString("jammulai_mapel"));
-                        mapel.setJamselesai_mapel(ob.getString("jamselesai_mapel"));
-                        mapel.setSekolah_mapel(ob.getString("sekolah_mapel"));
-                        mapel.setJurusan_mapel(ob.getString("jurusan_mapel"));
-                        mapel.setKelas_mapel(ob.getString("kelas_mapel"));
+                        mapel.setId_mapel(ob.getString("kode_mapel"));
+                        mapel.setNama_mapel(ob.getString("nama"));
+                        mapel.setKkm_mapel(ob.getString("kkm"));
+                        mapel.setTahunakademik_mapel(ob.getString("tahun_akademik"));
+                        mapel.setHari_mapel(ob.getString("hari"));
+                        mapel.setJammulai_mapel(ob.getString("jam_mulai"));
+                        mapel.setJamselesai_mapel(ob.getString("jam_selesai"));
+                        mapel.setSekolah_mapel(ob.getString("npsn"));
+                        mapel.setJurusan_mapel(ob.getString("kode_jurusan"));
+                        mapel.setKelas_mapel(ob.getString("kode_kelas"));
 
                         mapelList.add(mapel);
                     }
@@ -176,10 +205,12 @@ public class MapelActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> parms = new HashMap<String, String>();
+                parms.put("sekolah", sekolah);
                 parms.put("jurusan", jurusan);
-                parms.put("kelas", kelas);
+                parms.put("kelas", firstTwo(kelas));
                 parms.put("hari", hari);
                 parms.put("tahun", tahun);
+                parms.put("semester", semester);
                 return parms;
             }
         };
@@ -187,59 +218,12 @@ public class MapelActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void getHari() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/hari.php",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        JSONObject j = null;
-                        try {
-                            j = new JSONObject(response);
-                            resulthari = j.getJSONArray("result");
-                            gethari(resulthari);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
-            }
-        };;
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+    public String firstTwo(String str) {
+        return str.length() < 2 ? str : str.substring(0, 2);
     }
 
-    private void gethari(JSONArray j) {
-        hari.clear();
-        hari.add("Pilih Hari");
-        for(int i=0;i<j.length();i++){
-            try {
-                //Getting json object
-                JSONObject json = j.getJSONObject(i);
-
-                //Adding the name of the student to array list
-                hari.add(json.getString("nama_hari"));;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //Setting adapter to show the items in the spinner
-        spinnerhari.setAdapter(new ArrayAdapter<String>(MapelActivity.this, R.layout.login_spinner, R.id.textView, hari));
-    }
-
-    private void getKelas(int itemAtPosition) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/kelas.php",
+    private void getKelas(String kode_jurusan, String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/kelas.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -261,39 +245,42 @@ public class MapelActivity extends AppCompatActivity {
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(MapelActivity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                params.put("jurusan", String.valueOf(itemAtPosition));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("kode_jurusan", kode_jurusan);
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getkelas(JSONArray j) {
-        kelas.clear();
-        kelas.add("Pilih Kelas");
+        kodekelas.clear();
+        namakelas.clear();
+        namakelas.add("Pilih Kelas");
+        kodekelas.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                kelas.add(json.getString("nama_kelas"));;
+                namakelas.add(json.getString("nama_kelas"));
+                kodekelas.add(json.getString("kode_kelas"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerkelas.setAdapter(new ArrayAdapter<String>(MapelActivity.this, R.layout.login_spinner, R.id.textView, kelas));
+        spinnerwhiteAdapter = new SpinnerwhiteAdapter(MapelActivity.this, namakelas, kodekelas);
+        spinnerkelas.setAdapter(spinnerwhiteAdapter);
     }
 
-    private void getJurusan() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/jurusan.php",
+    private void getJurusan(String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/jurusan.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -315,33 +302,36 @@ public class MapelActivity extends AppCompatActivity {
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(MapelActivity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getjurusan(JSONArray j) {
-        jurusan.clear();
-        jurusan.add("Pilih Jurusan");
+        kodejurusan.clear();
+        namajurusan.clear();
+        namajurusan.add("Pilih Jurusan");
+        kodejurusan.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                jurusan.add(json.getString("nama_jurusan"));;
+                namajurusan.add(json.getString("nama_jurusan"));
+                kodejurusan.add(json.getString("kode_jurusan"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerjurusan.setAdapter(new ArrayAdapter<String>(MapelActivity.this, R.layout.login_spinner, R.id.textView, jurusan));
+        spinnerwhiteAdapter = new SpinnerwhiteAdapter(MapelActivity.this, namajurusan, kodejurusan);
+        spinnerjurusan.setAdapter(spinnerwhiteAdapter);
     }
 }

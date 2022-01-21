@@ -180,34 +180,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:text="Agama"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtagama"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
                     android:text="Alamat"
                     android:fontFamily="@font/segoeui"/>
 
@@ -264,39 +236,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:text="Status"
+                    android:text="Status Keluarga"
                     android:fontFamily="@font/segoeui"/>
 
                 <TextView
                     android:id="@+id/txtstatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:text="Pekerjaan"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtpekerjaan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -321,11 +265,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:text="Email"
+                    android:text="Pekerjaan"
                     android:fontFamily="@font/segoeui"/>
 
                 <TextView
-                    android:id="@+id/txtemail"
+                    android:id="@+id/txtpekerjaan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"

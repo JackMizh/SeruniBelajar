@@ -34,11 +34,12 @@ import java.util.Map;
 public class ElearningActivity extends AppCompatActivity {
 
     private JSONArray resultjurusan, resultkelas;
-    private ArrayList<String> jurusan, kelas;
+    private ArrayList<String> namajurusan, kodejurusan, namakelas, kodekelas;
     Spinner spinnerjurusan, spinnerkelas;
     private List<Elearning> elearningList;
     private RecyclerView.Adapter adapter;
     private RecyclerView mList;
+    SpinnerwhiteAdapter spinnerwhiteAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class ElearningActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent in = new Intent(ElearningActivity.this, TambahElearning.class);
                 in.putExtra("sekolah", getIntent().getStringExtra("sekolah"));
+                in.putExtra("nip", getIntent().getStringExtra("nip"));
                 startActivity(in);
             }
         });
@@ -73,13 +75,15 @@ public class ElearningActivity extends AppCompatActivity {
         mList.setLayoutManager(new LinearLayoutManager(this));
         adapter = new ElearningAdapter(this, elearningList);
 
-        jurusan = new ArrayList<String>();
-        kelas = new ArrayList<String>();
+        namajurusan = new ArrayList<String>();
+        kodejurusan = new ArrayList<String>();
+        namakelas = new ArrayList<String>();
+        kodekelas = new ArrayList<String>();
         spinnerjurusan = findViewById(R.id.spinnerjurusan);
         spinnerjurusan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                getKelas(i);
+                getKelas(adapterView.getItemAtPosition(i).toString(), getIntent().getStringExtra("sekolah"));
             }
 
             @Override
@@ -117,13 +121,13 @@ public class ElearningActivity extends AppCompatActivity {
             }
         });
 
-        getJurusan();
+        getJurusan(getIntent().getStringExtra("sekolah"));
         getAll();
     }
 
     private void getSearch(String jurusan, String kelas) {
         elearningList.clear();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/elearningcari.php", new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/elearningcari.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -132,16 +136,17 @@ public class ElearningActivity extends AppCompatActivity {
                     for (int i=0; i<array.length(); i++ ){
                         JSONObject ob=array.getJSONObject(i);
                         Elearning elearning = new Elearning();
-                        elearning.setId_elearning(ob.getString("id_elearning"));
-                        elearning.setSekolah_elearning(ob.getString("sekolah_elearning"));
-                        elearning.setJurusan_elearning(ob.getString("jurusan_elearning"));
-                        elearning.setKelas_elearning(ob.getString("kelas_elearning"));
-                        elearning.setMapel_elearning(ob.getString("mapel_elearning"));
-                        elearning.setJudul_elearning(ob.getString("judul_elearning"));
-                        elearning.setTanggal_elearning(ob.getString("tanggal_elearning"));
-                        elearning.setFile_elearning(ob.getString("file_elearning"));
-                        elearning.setYoutube_elearning(ob.getString("youtube_elearning"));
-                        elearning.setGuru_elearning(ob.getString("guru_elearning"));
+                        elearning.setId_elearning(ob.getString("kode_mapel"));
+                        elearning.setSekolah_elearning(ob.getString("npsn"));
+                        elearning.setJurusan_elearning(ob.getString("kode_jurusan"));
+                        elearning.setKelas_elearning(ob.getString("kode_kelas"));
+                        elearning.setMapel_elearning(ob.getString("nama_mapel"));
+                        elearning.setJudul_elearning(ob.getString("judul"));
+                        elearning.setTanggal_elearning(ob.getString("tgl_upload"));
+                        elearning.setFile_elearning(ob.getString("bahan"));
+                        elearning.setYoutube_elearning(ob.getString("video"));
+                        elearning.setGuru_elearning(ob.getString("nama"));
+                        elearning.setPertemuan_elearning(ob.getString("pertemuan"));
 
                         elearningList.add(elearning);
                     }
@@ -173,7 +178,7 @@ public class ElearningActivity extends AppCompatActivity {
 
     private void getAll() {
         elearningList.clear();
-        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/elearning.php", new Response.Listener<String>() {
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/elearning.php", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -182,16 +187,17 @@ public class ElearningActivity extends AppCompatActivity {
                     for (int i=0; i<array.length(); i++ ){
                         JSONObject ob=array.getJSONObject(i);
                         Elearning elearning = new Elearning();
-                        elearning.setId_elearning(ob.getString("id_elearning"));
-                        elearning.setSekolah_elearning(ob.getString("sekolah_elearning"));
-                        elearning.setJurusan_elearning(ob.getString("jurusan_elearning"));
-                        elearning.setKelas_elearning(ob.getString("kelas_elearning"));
-                        elearning.setMapel_elearning(ob.getString("mapel_elearning"));
-                        elearning.setJudul_elearning(ob.getString("judul_elearning"));
-                        elearning.setTanggal_elearning(ob.getString("tanggal_elearning"));
-                        elearning.setFile_elearning(ob.getString("file_elearning"));
-                        elearning.setYoutube_elearning(ob.getString("youtube_elearning"));
-                        elearning.setGuru_elearning(ob.getString("guru_elearning"));
+                        elearning.setId_elearning(ob.getString("kode_mapel"));
+                        elearning.setSekolah_elearning(ob.getString("npsn"));
+                        elearning.setJurusan_elearning(ob.getString("kode_jurusan"));
+                        elearning.setKelas_elearning(ob.getString("kode_kelas"));
+                        elearning.setMapel_elearning(ob.getString("nama_mapel"));
+                        elearning.setJudul_elearning(ob.getString("judul"));
+                        elearning.setTanggal_elearning(ob.getString("tgl_upload"));
+                        elearning.setFile_elearning(ob.getString("bahan"));
+                        elearning.setYoutube_elearning(ob.getString("video"));
+                        elearning.setGuru_elearning(ob.getString("nama"));
+                        elearning.setPertemuan_elearning(ob.getString("pertemuan"));
 
                         elearningList.add(elearning);
                     }
@@ -219,8 +225,8 @@ public class ElearningActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void getKelas(int itemAtPosition) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/kelas.php",
+    private void getKelas(String kode_jurusan, String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/kelas.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -242,39 +248,42 @@ public class ElearningActivity extends AppCompatActivity {
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(ElearningActivity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                params.put("jurusan", String.valueOf(itemAtPosition));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("kode_jurusan", kode_jurusan);
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getkelas(JSONArray j) {
-        kelas.clear();
-        kelas.add("Pilih Kelas");
+        kodekelas.clear();
+        namakelas.clear();
+        namakelas.add("Pilih Kelas");
+        kodekelas.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                kelas.add(json.getString("nama_kelas"));;
+                namakelas.add(json.getString("nama_kelas"));
+                kodekelas.add(json.getString("kode_kelas"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerkelas.setAdapter(new ArrayAdapter<String>(ElearningActivity.this, R.layout.login_spinner, R.id.textView, kelas));
+        spinnerwhiteAdapter = new SpinnerwhiteAdapter(ElearningActivity.this, namakelas, kodekelas);
+        spinnerkelas.setAdapter(spinnerwhiteAdapter);
     }
 
-    private void getJurusan() {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/jurusan.php",
+    private void getJurusan(String npsn) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/jurusan.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -296,33 +305,36 @@ public class ElearningActivity extends AppCompatActivity {
                     }
                 }){
             @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                SessionManager sessionManager = new SessionManager(ElearningActivity.this);
-                params.put("sekolah",  getIntent().getStringExtra("sekolah"));
-                return params;
+            protected Map<String, String> getParams()  {
+                Map<String,String>parms=new HashMap<String, String>();
+                parms.put("npsn",npsn);
+                return parms;
             }
-        };;
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
 
     private void getjurusan(JSONArray j) {
-        jurusan.clear();
-        jurusan.add("Pilih Jurusan");
+        kodejurusan.clear();
+        namajurusan.clear();
+        namajurusan.add("Pilih Jurusan");
+        kodejurusan.add("0000");
         for(int i=0;i<j.length();i++){
             try {
                 //Getting json object
                 JSONObject json = j.getJSONObject(i);
 
                 //Adding the name of the student to array list
-                jurusan.add(json.getString("nama_jurusan"));;
+                namajurusan.add(json.getString("nama_jurusan"));
+                kodejurusan.add(json.getString("kode_jurusan"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
         //Setting adapter to show the items in the spinner
-        spinnerjurusan.setAdapter(new ArrayAdapter<String>(ElearningActivity.this, R.layout.login_spinner, R.id.textView, jurusan));
+        spinnerwhiteAdapter = new SpinnerwhiteAdapter(ElearningActivity.this, namajurusan, kodejurusan);
+        spinnerjurusan.setAdapter(spinnerwhiteAdapter);
     }
 }

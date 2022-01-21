@@ -74,7 +74,37 @@ public class HomeguruFragment extends Fragment {
         btn_data.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Segera Hadir!", Toast.LENGTH_LONG).show();
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileguru.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                JSONObject j = null;
+                                try {
+                                    j = new JSONObject(response);
+                                    resultprofileguru = j.getJSONArray("result");
+                                    getProfileguru(resultprofileguru, "absensi");
+
+                                } catch (JSONException e) {
+                                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }){
+                    @Override
+                    protected Map<String, String> getParams()  {
+                        Map<String,String>parms=new HashMap<String, String>();
+                        SessionManager sessionManager = new SessionManager(getActivity());
+                        parms.put("email", sessionManager.getUserDetail().get("EMAIL"));
+                        return parms;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
             }
         });
 
@@ -82,7 +112,7 @@ public class HomeguruFragment extends Fragment {
         btnmapel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profileguru.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileguru.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -120,7 +150,7 @@ public class HomeguruFragment extends Fragment {
         btn_tugas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profileguru.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileguru.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -158,7 +188,7 @@ public class HomeguruFragment extends Fragment {
         btn_sekolah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profileguru.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileguru.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -166,7 +196,7 @@ public class HomeguruFragment extends Fragment {
                                 try {
                                     j = new JSONObject(response);
                                     resultprofileguru = j.getJSONArray("result");
-                                    getProfileguru(resultprofileguru);
+                                    getProfileguru(resultprofileguru, "sekolah");
 
                                 } catch (JSONException e) {
                                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
@@ -196,7 +226,37 @@ public class HomeguruFragment extends Fragment {
         btn_nilai.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Segera Hadir!", Toast.LENGTH_LONG).show();
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileguru.php",
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                JSONObject j = null;
+                                try {
+                                    j = new JSONObject(response);
+                                    resultprofileguru = j.getJSONArray("result");
+                                    getProfileguru(resultprofileguru, "nilai");
+
+                                } catch (JSONException e) {
+                                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                            }
+                        }){
+                    @Override
+                    protected Map<String, String> getParams()  {
+                        Map<String,String>parms=new HashMap<String, String>();
+                        SessionManager sessionManager = new SessionManager(getActivity());
+                        parms.put("email", sessionManager.getUserDetail().get("EMAIL"));
+                        return parms;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                requestQueue.add(stringRequest);
             }
         });
 
@@ -204,7 +264,7 @@ public class HomeguruFragment extends Fragment {
         btn_elearning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profileguru.php",
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileguru.php",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -249,6 +309,7 @@ public class HomeguruFragment extends Fragment {
                 Intent in = new Intent(getActivity(), TugasActivity.class);
                 in.putExtra("previllage", "Guru");
                 in.putExtra("sekolah", json.getString("sekolah"));
+                in.putExtra("nip", json.getString("nip"));
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -264,6 +325,7 @@ public class HomeguruFragment extends Fragment {
                 Intent in = new Intent(getActivity(), ElearningActivity.class);
                 in.putExtra("previllage", "Guru");
                 in.putExtra("sekolah", json.getString("sekolah"));
+                in.putExtra("nip", json.getString("nip"));
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -279,6 +341,7 @@ public class HomeguruFragment extends Fragment {
                 Intent in = new Intent(getActivity(), MapelActivity.class);
                 in.putExtra("previllage", "Guru");
                 in.putExtra("sekolah", json.getString("sekolah"));
+                in.putExtra("nip", json.getString("nip"));
                 startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -286,15 +349,32 @@ public class HomeguruFragment extends Fragment {
         }
     }
 
-    private void getProfileguru(JSONArray j) {
+    private void getProfileguru(JSONArray j, String usage) {
         for(int i=0;i<j.length();i++){
             try {
+                if(usage.equals("sekolah"))
+                {
+                    JSONObject json = j.getJSONObject(i);
+                    Intent in = new Intent(getActivity(), SekolahActivity.class);
+                    in.putExtra("previllage", "Guru");
+                    in.putExtra("sekolah", json.getString("sekolah"));
+                    startActivity(in);
+                }
+                else if(usage.equals("absensi")){
+                    JSONObject json = j.getJSONObject(i);
+                    Intent in = new Intent(getActivity(), AbsensiguruActivity.class);
+                    in.putExtra("previllage", "Guru");
+                    in.putExtra("sekolah", json.getString("sekolah"));
+                    startActivity(in);
+                }
+                else if(usage.equals("nilai")){
+                    JSONObject json = j.getJSONObject(i);
+                    Intent in = new Intent(getActivity(), NilaiguruActivity.class);
+                    in.putExtra("previllage", "Guru");
+                    in.putExtra("sekolah", json.getString("sekolah"));
+                    startActivity(in);
+                }
                 //Getting json object
-                JSONObject json = j.getJSONObject(i);
-                Intent in = new Intent(getActivity(), SekolahActivity.class);
-                in.putExtra("previllage", "Guru");
-                in.putExtra("sekolah", json.getString("sekolah"));
-                startActivity(in);
             } catch (JSONException e) {
                 e.printStackTrace();
             }

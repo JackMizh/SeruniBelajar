@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -27,6 +28,7 @@ public class LastregisterActivity extends AppCompatActivity {
 
     EditText email,password;
     private RequestQueue rQueue;
+    LinearLayout usernamelayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,17 @@ public class LastregisterActivity extends AppCompatActivity {
 
         email = findViewById(R.id.username);
         password = findViewById(R.id.password);
+        usernamelayout = findViewById(R.id.usernamelayout);
+
+        if(getIntent().getStringExtra("previllage").equals("Orang Tua"))
+        {
+            email.setEnabled(false);
+            usernamelayout.setVisibility(View.INVISIBLE);
+        }
+        else {
+            email.setEnabled(true);
+            usernamelayout.setVisibility(View.VISIBLE);
+        }
 
         ImageView back = findViewById(R.id.btn_back);
         back.setOnClickListener(new View.OnClickListener() {
@@ -59,9 +72,14 @@ public class LastregisterActivity extends AppCompatActivity {
         final String emaill = email.getText().toString();
         final String pswd = password.getText().toString();
         if (emaill.isEmpty()) {
-            email.setError("Username or Email is required");
-            email.requestFocus();
-            return;
+            if(getIntent().getStringExtra("previllage").equals("Orang Tua")) {
+
+            }
+            else {
+                email.setError("Username or Email is required");
+                email.requestFocus();
+                return;
+            }
         }
         if (pswd.isEmpty()) {
             password.setError("Password is required");
@@ -71,7 +89,7 @@ public class LastregisterActivity extends AppCompatActivity {
 
         if(getIntent().getStringExtra("previllage").equals("Guru"))
         {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/registerguru.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/registerguru.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -99,27 +117,24 @@ public class LastregisterActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("nip_guru",  getIntent().getStringExtra("nip"));
-                    params.put("npsn_guru", getIntent().getStringExtra("npsn"));
-                    params.put("nuptk_guru", getIntent().getStringExtra("nuptk"));
-                    params.put("namalengkap_guru", getIntent().getStringExtra("nama"));
-                    params.put("tempatlahir_guru", getIntent().getStringExtra("tempatlahir"));
-                    params.put("tanggallahir_guru", getIntent().getStringExtra("tanggallahir"));
-                    params.put("jeniskelamin_guru", getIntent().getStringExtra("jeniskelamin"));
-                    params.put("alamat_guru", getIntent().getStringExtra("alamat"));
-                    params.put("agama_guru", getIntent().getStringExtra("agama"));
-                    params.put("statuspegawai_guru", getIntent().getStringExtra("statuspegawai"));
-                    params.put("jabatan_guru", getIntent().getStringExtra("jabatan"));
-                    params.put("tugastambahan_guru", getIntent().getStringExtra("tugastambahan"));
-                    params.put("nohp_guru", getIntent().getStringExtra("nohp"));
-                    params.put("nosertifikasi_guru", getIntent().getStringExtra("nosertifikasi"));
-                    params.put("golongan_guru", getIntent().getStringExtra("golongan"));
-                    params.put("foto_guru", "");
-                    params.put("status_guru", getIntent().getStringExtra("status"));
-                    params.put("sekolahabdian_guru", getIntent().getStringExtra("sekolahabdian"));
-                    params.put("email",emaill);
+                    params.put("nip",  getIntent().getStringExtra("nip"));
                     params.put("password",pswd);
-                    params.put("status_registrasi", "no");
+                    params.put("npsn", getIntent().getStringExtra("npsn"));
+                    params.put("nuptk", getIntent().getStringExtra("nuptk"));
+                    params.put("nama", getIntent().getStringExtra("nama"));
+                    params.put("id_jk", getIntent().getStringExtra("id_jk"));
+                    params.put("tempat_lahir", getIntent().getStringExtra("tempat_lahir"));
+                    params.put("tanggal_lahir", getIntent().getStringExtra("tanggal_lahir"));
+                    params.put("status_kepegawaian", getIntent().getStringExtra("status_kepegawaian"));
+                    params.put("id_agama", getIntent().getStringExtra("id_agama"));
+                    params.put("alamat", getIntent().getStringExtra("alamat"));
+                    params.put("no_hp", getIntent().getStringExtra("no_hp"));
+                    params.put("email",emaill);
+                    params.put("id_tgs_tambahan", getIntent().getStringExtra("id_tgs_tambahan"));
+                    params.put("golongan", getIntent().getStringExtra("golongan"));
+                    params.put("foto", "");
+                    params.put("nomor_sertifikasi", getIntent().getStringExtra("nomor_sertifikasi"));
+                    params.put("status", "Aktif");
                     return params;
                 }
             };
@@ -128,7 +143,7 @@ public class LastregisterActivity extends AppCompatActivity {
         }
         else if(getIntent().getStringExtra("previllage").equals("Orang Tua"))
         {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/registerorangtua.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/registerorangtua.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -156,20 +171,18 @@ public class LastregisterActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("nik_orangtua",  getIntent().getStringExtra("nik"));
-                    params.put("namalengkap_orangtua", getIntent().getStringExtra("nama"));
-                    params.put("tempatlahir_orangtua", getIntent().getStringExtra("tempatlahir"));
-                    params.put("tanggallahir_orangtua", getIntent().getStringExtra("tanggallahir"));
-                    params.put("jeniskelamin_orangtua", getIntent().getStringExtra("jeniskelamin"));
-                    params.put("alamat_orangtua", getIntent().getStringExtra("alamat"));
-                    params.put("agama_orangtua", getIntent().getStringExtra("agama"));
-                    params.put("nohp_orangtua", getIntent().getStringExtra("nohp"));
-                    params.put("status_orangtua", getIntent().getStringExtra("status"));
-                    params.put("foto_orangtua", "");
-                    params.put("pekerjaan_orangtua", getIntent().getStringExtra("pekerjaan"));
-                    params.put("email",emaill);
+                    params.put("nik_wali",  getIntent().getStringExtra("nik_wali"));
                     params.put("password",pswd);
-                    params.put("status_registrasi", "no");
+                    params.put("nama", getIntent().getStringExtra("nama"));
+                    params.put("alamat", getIntent().getStringExtra("alamat"));
+                    params.put("tempat_lahir", getIntent().getStringExtra("tempat_lahir"));
+                    params.put("tanggal_lahir", getIntent().getStringExtra("tanggal_lahir"));
+                    params.put("id_jk", getIntent().getStringExtra("id_jk"));
+                    params.put("no_hp", getIntent().getStringExtra("no_hp"));
+                    params.put("foto", "");
+                    params.put("status_keluarga", getIntent().getStringExtra("status_keluarga"));
+                    params.put("pekerjaan", getIntent().getStringExtra("pekerjaan"));
+                    params.put("status", getIntent().getStringExtra("status"));
                     return params;
                 }
             };
@@ -178,7 +191,7 @@ public class LastregisterActivity extends AppCompatActivity {
         }
         else if(getIntent().getStringExtra("previllage").equals("Siswa"))
         {
-            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://plazatanaman.com/sipren/registersiswa.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, "https://serunibelajar.co.id/absensi/registersiswa.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -206,25 +219,23 @@ public class LastregisterActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("nisn_siswa",  getIntent().getStringExtra("nisn"));
-                    params.put("npsn_siswa", getIntent().getStringExtra("npsn"));
-                    params.put("nipd_siswa", getIntent().getStringExtra("nipd"));
-                    params.put("nik_ayah", getIntent().getStringExtra("nikayah"));
-                    params.put("nik_ibu", getIntent().getStringExtra("nikibu"));
+                    params.put("nisn",  getIntent().getStringExtra("nisn"));
+                    params.put("nipd", getIntent().getStringExtra("nipd"));
+                    params.put("nama", getIntent().getStringExtra("nama"));
+                    params.put("npsn", getIntent().getStringExtra("npsn"));
+                    params.put("kode_jurusan", getIntent().getStringExtra("jurusan"));
+                    params.put("kode_kelas", getIntent().getStringExtra("kelas"));
+                    params.put("tempat_lahir", getIntent().getStringExtra("tempatlahir"));
+                    params.put("tanggal_lahir", getIntent().getStringExtra("tanggallahir"));
+                    params.put("id_jk", getIntent().getStringExtra("jeniskelamin"));
+                    params.put("id_agama", getIntent().getStringExtra("agama"));
+                    params.put("alamat", getIntent().getStringExtra("alamat"));
+                    params.put("no_hp", getIntent().getStringExtra("nohp"));
+                    params.put("foto", "");
+                    params.put("status", getIntent().getStringExtra("status"));
                     params.put("nik_wali", getIntent().getStringExtra("nikwali"));
-                    params.put("namalengkap_siswa", getIntent().getStringExtra("nama"));
-                    params.put("jeniskelamin_siswa", getIntent().getStringExtra("jeniskelamin"));
-                    params.put("alamat_siswa", getIntent().getStringExtra("alamat"));
-                    params.put("agama_siswa", getIntent().getStringExtra("agama"));
-                    params.put("nohp_siswa", getIntent().getStringExtra("nohp"));
-                    params.put("foto_siswa", "");
-                    params.put("status_siswa", getIntent().getStringExtra("status"));
-                    params.put("tempatlahir_siswa", getIntent().getStringExtra("tempatlahir"));
-                    params.put("tanggallahir_siswa", getIntent().getStringExtra("tanggallahir"));
-                    params.put("asalsekolah_siswa", getIntent().getStringExtra("sekolah"));
                     params.put("email",emaill);
                     params.put("password",pswd);
-                    params.put("status_registrasi", "no");
                     return params;
                 }
             };

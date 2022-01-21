@@ -1,9 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AbsensiActivity">
+    android:background="@drawable/background"
+    tools:context=".AbsensiActivity"
+    android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/logolayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90px">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:text="Absensi Siswa"
+                    android:fontFamily="@font/latoblack"
+                    android:layout_marginStart="35dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/bg"
+                    android:layout_width="match_parent"
+                    android:layout_height="800dp"
+                    android:layout_marginTop="60px"
+                    android:src="@drawable/bg_rounded"
+                    app:tint="#E5E5E5" />
+
+                <LinearLayout
+                    android:id="@+id/layouttitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@id/bg"
+                    android:layout_marginTop="78px"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:gravity="center">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/profile_image"
+                        android:src="@drawable/logoputih"
+                        app:civ_circle_background_color="@color/colorPrimary"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/nama"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:fontFamily="@font/segoeuibold"/>
+
+                        <TextView
+                            android:id="@+id/nisn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@android:color/darker_gray"
+                            android:textSize="17sp"
+                            android:fontFamily="@font/segoeui"/>
+
+                        <TextView
+                            android:id="@+id/jurusan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/segoeui"
+                            android:layout_marginTop="15dp"/>
+
+                        <TextView
+                            android:id="@+id/kelas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp"
+                            android:fontFamily="@font/segoeui"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layouttanggal"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/layouttitle"
+                    android:background="@drawable/bg_btnhome"
+                    android:backgroundTint="@android:color/white"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginStart="30dp">
+
+                    <TextView
+                        android:id="@+id/tanggal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15sp"
+                        android:textColor="@android:color/black"
+                        android:text="Tanggal"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:drawableEnd="@drawable/ic_baseline_calendar_month_24"
+                        android:drawableTint="@android:color/black"
+                        android:gravity="center_vertical"/>
+
+                </LinearLayout>
+
+                <HorizontalScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginEnd="17dp"
+                    android:layout_below="@id/layouttanggal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:background="@color/colorPrimary">
+
+                            <TextView
+                                android:layout_width="50dp"
+                                android:layout_height="35dp"
+                                android:text="No."
+                                android:textColor="@android:color/white"
+                                android:textSize="10dp"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="20dp"/>
+
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="35dp"
+                                android:text="Mata Pelajaran"
+                                android:textColor="@android:color/white"
+                                android:textSize="10dp"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="20dp"/>
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="35dp"
+                                android:text="Mulai"
+                                android:textColor="@android:color/white"
+                                android:textSize="10dp"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="20dp"/>
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="35dp"
+                                android:text="Selesai"
+                                android:textColor="@android:color/white"
+                                android:textSize="10dp"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="20dp"/>
+
+                            <TextView
+                                android:layout_width="70dp"
+                                android:layout_height="35dp"
+                                android:text="Status"
+                                android:textColor="@android:color/white"
+                                android:textSize="10dp"
+                                android:fontFamily="@font/montserrat_bold"
+                                android:gravity="center_vertical"
+                                android:layout_marginStart="20dp"/>
+                        </LinearLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerviewabsensi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/absensi_layout"/>
+
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

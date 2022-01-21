@@ -45,7 +45,7 @@ public class ProfileguruActivity extends AppCompatActivity {
             }
         });
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/profileguru.php",
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/profileguru.php",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -85,7 +85,6 @@ public class ProfileguruActivity extends AppCompatActivity {
                 JSONObject json = j.getJSONObject(i);
 
                 TextView txtnip = findViewById(R.id.txtnip);
-                TextView txtnpsn = findViewById(R.id.txtnpsn);
                 TextView txtnuptk = findViewById(R.id.txtnuptk);
                 TextView txtnamalengkap = findViewById(R.id.txtnamalengkap);
                 TextView txtttl = findViewById(R.id.txtttl);
@@ -93,38 +92,33 @@ public class ProfileguruActivity extends AppCompatActivity {
                 TextView txtagama = findViewById(R.id.txtagama);
                 TextView txtalamat = findViewById(R.id.txtalamat);
                 TextView txtstatuskepegawaian = findViewById(R.id.txtstatuskepegawaian);
-                TextView txtjabatan = findViewById(R.id.txtjabatan);
                 TextView txttugastambahan = findViewById(R.id.txttugastambahan);
                 TextView txtnohp = findViewById(R.id.txtnohp);
                 TextView txtnosertifikasi = findViewById(R.id.txtnosertifikasi);
                 TextView txtgolongan = findViewById(R.id.txtgolongan);
-                TextView txtstatus = findViewById(R.id.txtstatus);
                 CircleImageView profileimage = findViewById(R.id.profile_image);
                 TextView txtsekolahabdian = findViewById(R.id.txtsekolahabdian);
                 TextView txtemail = findViewById(R.id.txtemail);
 
-                txtnip.setText(json.getString("nip_guru"));
-                txtnpsn.setText(json.getString("npsn_guru"));
-                txtnuptk.setText(json.getString("nuptk_guru"));
-                txtnamalengkap.setText(json.getString("namalengkap_guru"));
-                txtttl.setText(json.getString("tempatlahir_guru") + ", " + json.getString("tanggallahir_guru"));
-                txtjk.setText(json.getString("jeniskelamin_guru"));
-                txtagama.setText(json.getString("agama_guru"));
-                txtalamat.setText(json.getString("alamat_guru"));
-                txtstatuskepegawaian.setText(json.getString("statuspegawai_guru"));
-                txtjabatan.setText(json.getString("jabatan_guru"));
-                txttugastambahan.setText(json.getString("tugastambahan_guru"));
-                txtnohp.setText(json.getString("nohp_guru"));
-                txtnosertifikasi.setText(json.getString("nosertifikasi_guru"));
-                txtgolongan.setText(json.getString("golongan_guru"));
-                txtstatus.setText(json.getString("status_guru"));
-                if(json.getString("foto_guru").equals(""))
+                txtnip.setText(json.getString("nip"));
+                txtnuptk.setText(json.getString("nuptk"));
+                txtnamalengkap.setText(json.getString("nama"));
+                txtttl.setText(json.getString("tempat_lahir") + ", " + json.getString("tanggal_lahir"));
+                txtjk.setText(json.getString("nama_jk"));
+                txtagama.setText(json.getString("nama_agama"));
+                txtalamat.setText(json.getString("alamat"));
+                txtstatuskepegawaian.setText(json.getString("status_kepegawaian"));
+                txttugastambahan.setText(json.getString("nama_tugas"));
+                txtnohp.setText(json.getString("no_hp"));
+                txtnosertifikasi.setText(json.getString("nomor_sertifikasi"));
+                txtgolongan.setText(json.getString("golongan"));
+                if(json.getString("foto").equals(""))
                 {
                     profileimage.setImageResource(R.drawable.logoputih);
                 }else {
-                    Glide.with(ProfileguruActivity.this).load(json.getString("foto_guru")).into(profileimage);
+                    Glide.with(ProfileguruActivity.this).load(json.getString("foto")).into(profileimage);
                 }
-                txtsekolahabdian.setText(json.getString("sekolahabdian_guru"));
+                txtsekolahabdian.setText(json.getString("nama_sekolah"));
                 txtemail.setText(json.getString("email"));
             } catch (JSONException e) {
                 e.printStackTrace();

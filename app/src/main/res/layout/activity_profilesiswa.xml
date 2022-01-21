@@ -95,96 +95,11 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:text="NPSN"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtnpsn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
                     android:text="NIPD"
                     android:fontFamily="@font/segoeui"/>
 
                 <TextView
                     android:id="@+id/txtnipd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:text="NIK Ayah"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtnikayah"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:text="NIK Ibu"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtnikibu"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"
@@ -376,34 +291,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
-                    android:text="Status"
-                    android:fontFamily="@font/segoeui"/>
-
-                <TextView
-                    android:id="@+id/txtstatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:text=""
-                    android:fontFamily="@font/segoeuibold"
-                    android:layout_marginTop="5dp"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="45dp"
-                android:layout_marginEnd="45dp"
-                android:layout_marginTop="20dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
                     android:text="Tempat, Tanggal Lahir"
                     android:fontFamily="@font/segoeui"/>
 
@@ -437,6 +324,62 @@
 
                 <TextView
                     android:id="@+id/txtasalsekolah"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:text=""
+                    android:fontFamily="@font/segoeuibold"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:text="Jurusan Siswa"
+                    android:fontFamily="@font/segoeui"/>
+
+                <TextView
+                    android:id="@+id/txtjurusan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:text=""
+                    android:fontFamily="@font/segoeuibold"
+                    android:layout_marginTop="5dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="45dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:text="Kelas Siswa"
+                    android:fontFamily="@font/segoeui"/>
+
+                <TextView
+                    android:id="@+id/txtkelas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/black"

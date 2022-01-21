@@ -45,6 +45,16 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/pertemuan_elearning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pertemuan 3"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/segoeuibold"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
             android:id="@+id/mapel_elearning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,13 +62,24 @@
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             android:fontFamily="@font/segoeuibold"
-            android:layout_marginStart="15dp"/>
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/guru_elearning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Guru : Syafira anastasya"
+            android:textColor="#9F9F9F"
+            android:textSize="12sp"
+            android:fontFamily="@font/segoeuibold"
+            android:layout_marginStart="15dp"/>
+
+        <TextView
+            android:id="@+id/deadline_elearning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
             android:textColor="#9F9F9F"
             android:textSize="12sp"
             android:fontFamily="@font/segoeuibold"

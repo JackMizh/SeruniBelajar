@@ -42,7 +42,7 @@ public class SekolahActivity extends AppCompatActivity {
 
         Tools.setSystemBarColor(this, R.color.colorPrimary);
 
-            StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://plazatanaman.com/sipren/sekolah.php",
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,"https://serunibelajar.co.id/absensi/sekolah.php",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -93,29 +93,21 @@ public class SekolahActivity extends AppCompatActivity {
                 TextView txtregion = findViewById(R.id.region);
                 TextView txtnss = findViewById(R.id.nss);
                 TextView txtnpsn = findViewById(R.id.npsn);
-                TextView txtnpwp = findViewById(R.id.npwp);
-                TextView txtkodesekolah = findViewById(R.id.kode);
-                TextView txtkepsek = findViewById(R.id.kepsek);
-                TextView txttahun = findViewById(R.id.tahun);
-                TextView txtstatus = findViewById(R.id.status);
+                TextView txtnip = findViewById(R.id.nip);
                 TextView txtalamat = findViewById(R.id.alamat);
                 TextView txtnohp = findViewById(R.id.nohp);
                 TextView txtemail = findViewById(R.id.email);
                 TextView txtwebsite = findViewById(R.id.website);
 
-                txtnama.setText(json.getString("nama_sekolah") + " (" + json.getString("status_sekolah") + ")");
-                txtregion.setText(json.getString("kelurahan_sekolah") + ", " + json.getString("kecamatan_sekolah") + ", " + json.getString("kabkota_sekolah") + ", " + json.getString("provinsi_sekolah") + ". " + json.getString("kodepos_sekolah"));
-                txtnss.setText(":  "+json.getString("nss_sekolah"));
-                txtnpsn.setText(":  "+json.getString("npsn_sekolah"));
-                txtnpwp.setText(":  "+json.getString("npwp_sekolah"));
-                txtkodesekolah.setText(":  "+json.getString("kode_sekolah"));
-                txtkepsek.setText(":  "+json.getString("namakepsek_sekolah"));
-                txttahun.setText(":  "+json.getString("tahunberdiri_sekolah"));
-                txtstatus.setText(":  "+json.getString("status"));
-                txtalamat.setText(json.getString("alamat_sekolah"));
-                txtnohp.setText(json.getString("nohp_sekolah"));
-                txtemail.setText(json.getString("email_sekolah"));
-                txtwebsite.setText(json.getString("website_sekolah"));
+                txtnama.setText(json.getString("nama"));
+                txtregion.setText(json.getString("kelurahan") + ", " + json.getString("kecamatan") + ", " + json.getString("kab_kota") + ", " + json.getString("provinsi") + ". " + json.getString("kode_pos"));
+                txtnss.setText(":  "+json.getString("nss"));
+                txtnpsn.setText(":  "+json.getString("npsn"));
+                txtnip.setText(":  "+json.getString("nip"));
+                txtalamat.setText(json.getString("alamat"));
+                txtnohp.setText(json.getString("no_telepon"));
+                txtemail.setText(json.getString("email"));
+                txtwebsite.setText(json.getString("website"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
